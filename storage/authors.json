@@ -1,0 +1,32 @@
+{
+  "148374": {
+    "id": "148374",
+    "name": "Jo Nesbø",
+    "approved": true
+  },
+  "149104": {
+    "id": "149104",
+    "name": "Isaac Asimov",
+    "approved": false
+  },
+  "151552": {
+    "id": "151552",
+    "name": "Arthur C. Clarke",
+    "approved": true
+  },
+  "152182": {
+    "id": "152182",
+    "name": "Jules Verne",
+    "approved": true
+  },
+  "161240": {
+    "id": "161240",
+    "name": "Joanne K. Rowlingová",
+    "approved": true
+  },
+  "178870": {
+    "id": "178870",
+    "name": "Robert Galbraith",
+    "approved": true
+  }
+}
