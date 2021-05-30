@@ -67,27 +67,42 @@ export const BookList = createVisualComponent({
                         />
                     )
                 },
-                header: <UU5.Bricks.Lsi lsi={{en: "Cover", cs: "Obal"}}/>,
+                header: <UU5.Bricks.Lsi lsi={{en: "Image", cs: "Foto"}}/>,
                 width: "60px"
+                
             },
-            {
+            //// ID bych nezobrazoval, ale radší jen zakomentovávám
+           /*  {
                 cell: cellProps => {
                     return cellProps.data.data.id
                 },
-                header: "ISBN",
+                header: "ID",
                 width: "200px"
-            },
+            }, */
             {
                 cell: cellProps => cellProps.data.data.name,
-                header: <UU5.Bricks.Lsi lsi={{en: "Name", cs: "Název"}}/>
+                header: <UU5.Bricks.Lsi lsi={{en: "Recipe", cs: "Recept"}}/>
             },
             {
+                cell: cellProps => cellProps.data.data.author,
+                header: <UU5.Bricks.Lsi lsi={{en: "Author", cs: "Autor"}}/>
+            },
+            /// seznam ingrediencí nebudeme pravděpodobně vypisovat, proto zakomentováno - finálně smazat
+            /* {
                 cell: cellProps => {
                     let result = [];
                     cellProps.data.data.authorList.forEach(authorId => result.push(authorMap[authorId] && authorMap[authorId].name))
                     return result.join(", ")
                 },
                 header: <UU5.Bricks.Lsi lsi={{en: "Authors", cs: "Autoři"}}/>
+            }, */
+            {
+                cell: cellProps => cellProps.data.data.difficulty,
+                header: <UU5.Bricks.Lsi lsi={{en: "Difficulty", cs: "Náročnost"}}/>
+            },
+            {
+                cell: cellProps => cellProps.data.data.preparationTime + "m",
+                header: <UU5.Bricks.Lsi lsi={{en: "Preparation time", cs: "Čas na přípravu"}}/>
             },
             {
                 cell: cellProps => {
