@@ -6,7 +6,7 @@
     "difficulty": "Medium",
     "preparationTime": 15,
     "instructions":"Smíchejte ingredience do sebe.",
-    "ingredientsList": [
+    "ingredientList": [
       { 
         "148374": {
           "amount": 15
@@ -31,7 +31,7 @@
     "difficulty": "Easy",
     "preparationTime": 5,
     "instructions":"Odměřit panák, nalít do sklenice, přidat tonik, led, plátek citrusu a je hotovo.",
-    "ingredientsList": [
+    "ingredientList": [
       { 
         "149104": {
           "amount": 45
