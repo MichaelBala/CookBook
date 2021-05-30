@@ -8,8 +8,8 @@ async function ListAbl(req, res) {
         !name || (name && typeof name === "string" && name.length < 30)
     ) {
         try {
-            let authorList = await dao.listAuthors(name);
-            res.status(200).json({itemList: authorList, total: authorList.length});
+            let ingredientList = await dao.listIngredients(name);
+            res.status(200).json({itemList: ingredientList, total: ingredientList.length});
         } catch (e) {
             res.status(500).json({error: e})
         }

@@ -10,128 +10,128 @@ const DEFAULT_STORAGE_PATH = path.join(__dirname, "storage", "Ingredients.json")
 
 class LibraryDao {
     constructor(storagePath) {
-        this.authorStoragePath = storagePath ? storagePath : DEFAULT_STORAGE_PATH;
+        this.IngredientsStoragePath = storagePath ? storagePath : DEFAULT_STORAGE_PATH;
     }
 
     // create
-    async addAuthor(author) {
-        const authors = await this._loadAllAuthors();
-        if (this._isDuplicate(authors, author.id)) {
-            const e = new Error(`Author with id '${author.id}' already exists.`);
+    async addIngredient(ingredient) {
+        const ingredients = await this._loadAllIngredients();
+        if (this._isDuplicate(ingredients, ingredient.id)) {
+            const e = new Error(`Ingredient with id '${ingredient.id}' already exists.`);
             e.code = "DUPLICATE_CODE";
             throw e;
         }
-        authors[author.id] = author;
+        ingredients[ingredient.id] = ingredient;
         try {
-            await wf(this._getStorageLocation(), JSON.stringify(authors, null, 2));
-            return author;
+            await wf(this._getStorageLocation(), JSON.stringify(ingredients, null, 2));
+            return ingredient;
         } catch (error) {
-            const e = new Error(`Failed to store author with id '${author.id}' to local storage.`);
-            e.code = "FAILED_TO_STORE_AUTHOR";
+            const e = new Error(`Failed to store ingredient with id '${ingredient.id}' to local storage.`);
+            e.code = "FAILED_TO_STORE_INGREDIENT";
             throw e;
         }
     }
 
     // get
-    async getAuthor(id) {
-        const authors = await this._loadAllAuthors();
-        if (authors[id]) {
-            return authors[id];
+    async getIngredient(id) {
+        const ingredients = await this._loadAllIngredients();
+        if (ingredients[id]) {
+            return ingredients[id];
         } else {
-            const e = new Error(`Author with id '${id}' does not exist.`);
-            e.code = "FAILED_TO_GET_AUTHOR";
+            const e = new Error(`Ingredient with id '${id}' does not exist.`);
+            e.code = "FAILED_TO_GET_INGREDIENT";
             throw e;
         }
     }
 
     // update
-    async updateAuthor(author) {
-        const authors = await this._loadAllAuthors();
-        if (authors[author.id]) {
-            authors[author.id] = author;
+    async updateIngredient(ingredient) {
+        const ingredients = await this._loadAllIngredients();
+        if (ingredients[ingredient.id]) {
+            ingredients[ingredient.id] = ingredient;
             try {
-                await wf(this._getStorageLocation(), JSON.stringify(authors, null, 2));
-                return author;
+                await wf(this._getStorageLocation(), JSON.stringify(ingredients, null, 2));
+                return ingredient;
             } catch (error) {
-                const e = new Error(`Failed to update author with id '${author.id}' in local storage.`);
-                e.code = "FAILED_TO_UPDATE_AUTHOR";
+                const e = new Error(`Failed to update ingredient with id '${ingredient.id}' in local storage.`);
+                e.code = "FAILED_TO_UPDATE_INGREDIENT";
                 throw e;
             }
         } else {
-            const e = new Error(`Author with id '${author.id}' does not exist.`);
-            e.code = "FAILED_TO_GET_AUTHOR";
+            const e = new Error(`Ingredient with id '${ingredient.id}' does not exist.`);
+            e.code = "FAILED_TO_GET_INGREDIENT";
             throw e;
         }
     }
 
     // approve
-    async approveAuthor(author) {
-        const authors = await this._loadAllAuthors();
-        if (authors[author.id]) {
-            authors[author.id].approved = true;
+    async approveIngredient(ingredient) {
+        const ingredients = await this._loadAllIngredients();
+        if (ingredients[ingredient.id]) {
+            ingredients[ingredient.id].approved = true;
             try {
-                await wf(this._getStorageLocation(), JSON.stringify(authors, null, 2));
-                return authors[author.id];
+                await wf(this._getStorageLocation(), JSON.stringify(ingredients, null, 2));
+                return ingredients[ingredient.id];
             } catch (error) {
-                const e = new Error(`Failed to approve author with id '${author.id}' in local storage.`);
-                e.code = "FAILED_TO_APPROVE_AUTHOR";
+                const e = new Error(`Failed to approve ingredient with id '${ingredient.id}' in local storage.`);
+                e.code = "FAILED_TO_APPROVE_ingredient";
                 throw e;
             }
         } else {
-            const e = new Error(`Author with id '${author.id}' does not exist.`);
-            e.code = "FAILED_TO_GET_AUTHOR";
+            const e = new Error(`ingredient with id '${ingredient.id}' does not exist.`);
+            e.code = "FAILED_TO_GET_ingredient";
             throw e;
         }
     }
 
     // delete
-    async deleteAuthor(id) {
-        const authors = await this._loadAllAuthors();
-        delete authors[id];
+    async deleteIngredient(id) {
+        const ingredients = await this._loadAllIngredients();
+        delete ingredients[id];
         try {
-            await wf(this._getStorageLocation(), JSON.stringify(authors, null, 2));
+            await wf(this._getStorageLocation(), JSON.stringify(ingredients, null, 2));
             return undefined;
         } catch (error) {
-            const e = new Error(`Failed to delete author with id '${id}' in local storage.`);
-            e.code = "FAILED_TO_DELETE_AUTHOR";
+            const e = new Error(`Failed to delete ingredient with id '${id}' in local storage.`);
+            e.code = "FAILED_TO_DELETE_ingredient";
             throw e;
         }
     }
 
     // list
-    async listAuthors(name) {
-        const authors = await this._loadAllAuthors();
-        let authorList = [];
-        for (let id in authors) {
-            if (!name || authors[id].name.toLowerCase().includes(name.toLowerCase())) {
-                authorList.push(authors[id]);
+    async listIngredients(name) {
+        const ingredients = await this._loadAllIngredients();
+        let ingredientList = [];
+        for (let id in ingredients) {
+            if (!name || ingredients[id].name.toLowerCase().includes(name.toLowerCase())) {
+                ingredientList.push(ingredients[id]);
             }
         }
-        return authorList;
+        return ingredientList;
     }
 
     // private
-    async _loadAllAuthors() {
-        let authors;
+    async _loadAllIngredients() {
+        let ingredients;
         try {
-            authors = JSON.parse(await rf(this._getStorageLocation()));
+            ingredients = JSON.parse(await rf(this._getStorageLocation()));
         } catch (e) {
             if (e.code === 'ENOENT') {
                 console.info("No storage found, initializing new one...");
-                authors = {};
+                ingredients = {};
             } else {
                 throw new Error("Unable to read from storage. Wrong data format. " + this._getStorageLocation());
             }
         }
-        return authors;
+        return ingredients;
     }
 
-    _isDuplicate(authors, id) {
-        return !!authors[id];
+    _isDuplicate(ingredients, id) {
+        return !!ingredients[id];
     }
 
     _getStorageLocation() {
-        return this.authorStoragePath;
+        return this.IngredientsStoragePath;
     }
 
 }

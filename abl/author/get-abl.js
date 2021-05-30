@@ -8,10 +8,10 @@ async function GetAbl(req, res) {
         id && typeof id === "string" && id.length < 25
     ) {
         try {
-            let result = await dao.getAuthor(id);
+            let result = await dao.getIngredient(id);
             res.status(200).json(result);
         } catch (e) {
-            if (e.code === "FAILED_TO_GET_AUTHOR") {
+            if (e.code === "FAILED_TO_GET_ingredient") {
                 res.status(400).json({error: e})
             } else {
                 res.status(500).json({error: e})

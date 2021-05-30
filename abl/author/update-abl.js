@@ -8,14 +8,14 @@ async function UpdateAbl(req, res) {
         (id && typeof id === "string" && id.length < 25) &&
         (name && typeof name === "string" && name.length < 30)
     ) {
-        const author = {id, name};
+        const ingredient = {id, name};
         try {
-            let result = await dao.updateAuthor(author);
+            let result = await dao.updateIngredient(ingredient);
             res.status(200).json(result);
         } catch (e) {
-            if (e.code === "FAILED_TO_GET_AUTHOR") {
+            if (e.code === "FAILED_TO_GET_ingredient") {
                 res.status(400).json({error: e})
-            } else if (e.code === "FAILED_TO_UPDATE_AUTHOR") {
+            } else if (e.code === "FAILED_TO_UPDATE_ingredient") {
                 res.status(500).json({error: e})
             } else {
                 res.status(500).json({error: e})

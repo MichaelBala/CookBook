@@ -8,14 +8,14 @@ async function CreateAbl(req, res) {
         name && typeof name === "string" && name.length < 30 &&
         id && typeof id === "string" && id.length < 25
     ) {
-        const author = {id, name, approved: false};
+        const ingredient = {id, name, approved: false};
         try {
-            let result = await dao.addAuthor(author);
+            let result = await dao.addIngredient(ingredient);
             res.status(200).json(result);
         } catch (e) {
             if (e.code === "DUPLICATE_CODE") {
                 res.status(400).json({error: e})
-            } else if (e.code === "FAILED_TO_STORE_AUTHOR") {
+            } else if (e.code === "FAILED_TO_STORE_ingredient") {
                 res.status(500).json({error: e})
             } else {
                 res.status(500).json({error: e})
