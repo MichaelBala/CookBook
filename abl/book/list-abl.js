@@ -1,6 +1,6 @@
 const path = require("path");
-const LibraryDao = require("../../dao/book-dao");
-let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "books.json"))
+const LibraryDao = require("../../dao/recipe-dao");
+let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "recipes.json"))
 
 async function ListAbl(req, res) {
     let {name} = req.body;
@@ -8,8 +8,8 @@ async function ListAbl(req, res) {
         !name || (name && typeof name === "string" && name.length < 30)
     ) {
         try {
-            let bookList = await dao.listBooks(name);
-            res.status(200).json({itemList: bookList, total: bookList.length});
+            let recipeList = await dao.listRecipes(name);
+            res.status(200).json({itemList: recipeList, total: recipeList.length});
         } catch (e) {
             res.status(500).json({error: e})
         }
