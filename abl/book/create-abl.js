@@ -1,19 +1,19 @@
 const path = require("path");
 const LibraryDao = require("../../dao/recipe-dao");
 let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "recipes.json"))
-const AuthorsDao = require("../../dao/ingredients-dao");
-let AuthorsDao = new AuthorsDao(path.join(__dirname, "..", "..", "storage", "ingredients.json"))
+const IngredientsDao = require("../../dao/ingredients-dao");
+let IngredientsDao = new IngredientsDao(path.join(__dirname, "..", "..", "storage", "ingredients.json"))
 
 async function CreateAbl(req, res) {
-    let {id, name, authorList} = req.body;
+    let {id, name, ingredientList} = req.body;
     if (
         name && typeof name === "string" && name.length < 200 &&
-        authorList && authorList.length > 0 && authorList.length < 10 &&
+        ingredientList && ingredientList.length > 0 && ingredientList.length < 10 &&
         id && typeof id === "string" && id.length < 25
     ) {
-        for (let i = 0; i< authorList.length; i++) {
+        for (let i = 0; i< ingredientList.length; i++) {
             try {
-                await authorsDao.getAuthor(authorList[i])
+                await ingredientsDao.getIngredient(ingredientList[i])
             } catch (e) {
                 if (e.code === "FAILED_TO_GET_AUTHOR") {
                     res.status(400).json({error: e})
@@ -22,14 +22,14 @@ async function CreateAbl(req, res) {
                 }
             }
         }
-        const book = {id, name, authorList};
+        const recipe = {id, name, ingredientList};
         try {
-            let result = await dao.addBook(book);
+            let result = await dao.addRecipe(recipe);
             res.status(200).json(result);
         } catch (e) {
             if (e.code === "DUPLICATE_CODE") {
                 res.status(400).json({error: e})
-            } else if (e.code === "FAILED_TO_STORE_BOOK") {
+            } else if (e.code === "FAILED_TO_STORE_RECIPE") {
                 res.status(500).json({error: e})
             } else {
                 res.status(500).json({error: e})

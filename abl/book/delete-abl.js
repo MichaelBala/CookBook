@@ -8,7 +8,7 @@ async function DeleteAbl(req, res) {
         id && typeof id === "string" && id.length < 25
     ) {
         try {
-            await dao.deleteBook(id);
+            await dao.deleteRecipe(id);
             res.status(200).json({});
         } catch (e) {
             if (e.code === "FAILED_TO_DELETE_BOOK") {
