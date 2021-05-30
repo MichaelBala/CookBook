@@ -6,23 +6,7 @@
     "difficulty": "Medium",
     "preparationTime": 15,
     "instructions":"Smíchejte ingredience do sebe.",
-    "ingredientList": [
-      { 
-        "148374": {
-          "amount": 15
-        }
-      },
-      { 
-        "161240": {
-          "amount": 200
-        }
-      },
-      { 
-        "152182": {
-          "amount": 3
-        }
-      }
-    ]
+    "ingredientList": {"148374":15,"161240":200,"152182":3}
   },
   "ginTonic": {
     "id": "ginTonic",
@@ -31,17 +15,7 @@
     "difficulty": "Easy",
     "preparationTime": 5,
     "instructions":"Odměřit panák, nalít do sklenice, přidat tonik, led, plátek citrusu a je hotovo.",
-    "ingredientList": [
-      { 
-        "149104": {
-          "amount": 45
-        }
-      },
-      { 
-        "161240": {
-          "amount": 150
-        }
-      }
-    ]
+    "ingredientList": 
+      {"149104": 45, "161240": 150}   
   }
 }
