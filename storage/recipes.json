@@ -3,24 +3,24 @@
     "id": "longIsland",
     "author": "Gustav Suchý",
     "name": "Long Island Iced Tea",
-    "difficulty": "Střední",
+    "difficulty": "Medium",
     "preparationTime": 15,
     "instructions":"Smíchejte ingredience do sebe.",
     "ingredientsList": [
-      {
-        "ingredient": "Vodka",
-        "amount": 15,
-        "amountType": "ml"
+      { 
+        "148374": {
+          "amount": 15
+        }
       },
-      {
-        "ingredient": "Tequila",
-        "amount": 15,
-        "amountType": "ml"
+      { 
+        "161240": {
+          "amount": 200
+        }
       },
-      {
-        "ingredient": "Led",
-        "amount": 3,
-        "amountType": "kostky"
+      { 
+        "152182": {
+          "amount": 3
+        }
       }
     ]
   },
@@ -28,24 +28,19 @@
     "id": "ginTonic",
     "author": "Petr Marný",
     "name": "Gin Tonic",
-    "difficulty": "Lehký",
+    "difficulty": "Easy",
     "preparationTime": 5,
     "instructions":"Odměřit panák, nalít do sklenice, přidat tonik, led, plátek citrusu a je hotovo.",
     "ingredientsList": [
-      {
-        "ingredient": "Gin",
-        "amount": 45,
-        "amountType": "ml"
+      { 
+        "149104": {
+          "amount": 45
+        }
       },
-      {
-        "ingredient": "Tonic",
-        "amount": 150,
-        "amountType": "ml"
-      },
-      {
-        "ingredient": "led",
-        "amount": 3,
-        "amountType": "kostky"
+      { 
+        "161240": {
+          "amount": 150
+        }
       }
     ]
   }
