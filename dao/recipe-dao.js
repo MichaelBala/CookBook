@@ -8,72 +8,72 @@ const wf = fs.promises.writeFile;
 // 1
 const DEFAULT_STORAGE_PATH = path.join(__dirname, "storage", "recipes.json");
 
-class BookDao {
+class RecipeDao {
     constructor(storagePath) {
         this.recipeStoragePath = storagePath ? storagePath : DEFAULT_STORAGE_PATH;
     }
 
     // create
-    async addBook(book) {
-        const books = await this._loadAllBooks();
-        if (this._isDuplicate(books, book.id)) {
-            const e = new Error(`Book with id '${book.id}' already exists.`);
+    async addRecipe(recipe) {
+        const recipes = await this._loadAllRecipes();
+        if (this._isDuplicate(recipes, recipe.id)) {
+            const e = new Error(`Recipe with id '${recipe.id}' already exists.`);
             e.code = "DUPLICATE_CODE";
             throw e;
         }
-        books[book.id] = book;
+        recipes[recipe.id] = recipe;
         try {
-            await wf(this._getStorageLocation(), JSON.stringify(books, null, 2));
-            return book;
+            await wf(this._getStorageLocation(), JSON.stringify(recipes, null, 2));
+            return recipe;
         } catch (error) {
-            const e = new Error(`Failed to store book with id '${book.id}' to local storage.`);
-            e.code = "FAILED_TO_STORE_BOOK";
+            const e = new Error(`Failed to store recipe with id '${recipe.id}' to local storage.`);
+            e.code = "FAILED_TO_STORE_RECIPE";
             throw e;
         }
     }
 
     // get
-    async getBook(id) {
-        const books = await this._loadAllBooks();
-        if (books[id]) {
-            return books[id];
+    async getRecipe(id) {
+        const recipes = await this._loadAllRecipes();
+        if (recipes[id]) {
+            return recipes[id];
         } else {
-            const e = new Error(`Book with id '${id}' does not exist.`);
-            e.code = "FAILED_TO_GET_BOOK";
+            const e = new Error(`Recipe with id '${id}' does not exist.`);
+            e.code = "FAILED_TO_GET_RECIPE";
             throw e;
         }
     }
 
     // update
-    async updateBook(book) {
-        const books = await this._loadAllBooks();
-        if (books[book.id]) {
-            books[book.id] = book;
+    async updateRecipe(recipe) {
+        const recipes = await this._loadAllRecipes();
+        if (recipes[recipe.id]) {
+            recipes[recipe.id] = recipe;
             try {
-                await wf(this._getStorageLocation(), JSON.stringify(books, null, 2));
-                return book;
+                await wf(this._getStorageLocation(), JSON.stringify(recipes, null, 2));
+                return recipe;
             } catch (error) {
-                const e = new Error(`Failed to update book with id '${book.id}' in local storage.`);
-                e.code = "FAILED_TO_UPDATE_BOOK";
+                const e = new Error(`Failed to update recipe with id '${recipe.id}' in local storage.`);
+                e.code = "FAILED_TO_UPDATE_RECIPE";
                 throw e;
             }
         } else {
-            const e = new Error(`Book with id '${book.id}' does not exist.`);
-            e.code = "FAILED_TO_GET_BOOK";
+            const e = new Error(`Recipe with id '${recipe.id}' does not exist.`);
+            e.code = "FAILED_TO_GET_RECIPE";
             throw e;
         }
     }
 
     // delete
-    async deleteBook(id) {
-        const books = await this._loadAllBooks();
-        delete books[id];
+    async deleteRecipe(id) {
+        const recipes = await this._loadAllRecipes();
+        delete recipes[id];
         try {
-            await wf(this._getStorageLocation(), JSON.stringify(books, null, 2));
+            await wf(this._getStorageLocation(), JSON.stringify(recipes, null, 2));
             return undefined;
         } catch (error) {
-            const e = new Error(`Failed to delete book with id '${id}' in local storage.`);
-            e.code = "FAILED_TO_DELETE_BOOK";
+            const e = new Error(`Failed to delete recipe with id '${id}' in local storage.`);
+            e.code = "FAILED_TO_DELETE_RECIPE";
             throw e;
         }
     }
@@ -116,4 +116,4 @@ class BookDao {
 
 }
 
-module.exports = BookDao;
+module.exports = RecipeDao;
