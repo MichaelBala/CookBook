@@ -1,32 +1,38 @@
 {
   "148374": {
     "id": "148374",
-    "name": "Jo Nesbø",
+    "name": "Vodka",
+    "measure": "ml",
     "approved": true
   },
   "149104": {
     "id": "149104",
-    "name": "Isaac Asimov",
+    "name": "Gin",
+    "measure": "ml",
     "approved": false
   },
   "151552": {
     "id": "151552",
-    "name": "Arthur C. Clarke",
+    "name": "Soda",
+    "measure": "ml",
     "approved": true
   },
   "152182": {
     "id": "152182",
-    "name": "Jules Verne",
+    "name": "Ice",
+    "measure": "piece",
     "approved": true
   },
   "161240": {
     "id": "161240",
-    "name": "Joanne K. Rowlingová",
+    "name": "Cola",
+    "measure": "ml",
     "approved": true
   },
   "178870": {
     "id": "178870",
-    "name": "Robert Galbraith",
+    "name": "Mint",
+    "measure": "piece",
     "approved": true
   }
 }
