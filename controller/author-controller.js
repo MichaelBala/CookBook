@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const CreateAbl = require("../abl/author/create-abl");
-const GetAbl = require("../abl/author/get-abl");
-const UpdateAbl = require("../abl/author/update-abl");
-const ApproveAbl = require("../abl/author/approve-abl");
-const DeleteAbl = require("../abl/author/delete-abl");
-const ListAbl = require("../abl/author/list-abl");
+const CreateAbl = require("../abl/ingredient/create-abl");
+const GetAbl = require("../abl/ingredient/get-abl");
+const UpdateAbl = require("../abl/ingredient/update-abl");
+const ApproveAbl = require("../abl/ingredient/approve-abl");
+const DeleteAbl = require("../abl/ingredient/delete-abl");
+const ListAbl = require("../abl/ingredient/list-abl");
 
 router.post("/create", async (req, res) => {
     await CreateAbl(req, res)
