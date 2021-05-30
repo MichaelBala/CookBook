@@ -89,6 +89,8 @@ class BookDao {
         }
         return bookList;
     }
+ 
+
 
     // private
     async _loadAllBooks() {
@@ -113,6 +115,9 @@ class BookDao {
     _getStorageLocation() {
         return this.bookStoragePath;
     }
+
+
+
 
 }
 

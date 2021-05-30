@@ -90,6 +90,31 @@ class RecipeDao {
         return recipeList;
     }
 
+    // list all unique ingredients in recipes
+    async listRecipeIngredients() {
+        //window.alert("spusteno")
+        console.log("start list recipe Ingredients")
+        const recipes = await this._loadAllRecipes();
+        
+        let ingredientList = new Set;
+       
+        // iterate through all recipes
+        for (let recipe in recipes) {
+
+                //console.log(recipes[recipe]);
+                //console.log(recipes[recipe]["ingredientList"]);
+
+               // iterate through allingredients in recipe
+                for (let ingredient in recipes[recipe]["ingredientList"]) {
+                    console.log(ingredient)
+                    ingredientList.add(ingredient)
+                }
+            //}
+        }
+        console.log(ingredientList)
+        return ingredientList;
+    }
+
     // private
     async _loadAllRecipes() {
         let recipes;
@@ -115,5 +140,10 @@ class RecipeDao {
     }
 
 }
+
+
+//let recipeDao = new RecipeDao;
+//console.log(recipeDao.listRecipeIngredients());
+
 
 module.exports = RecipeDao;

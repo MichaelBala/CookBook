@@ -1,15 +1,23 @@
 const path = require("path");
 const LibraryDao = require("../../dao/Ingredients-dao");
 let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "Ingredients.json"))
+const LibraryRecipeDao = require("../../dao/recipe-dao");
+let recipeDao = new LibraryRecipeDao(path.join(__dirname, "..", "..", "storage", "recipes.json"))
+
 
 async function DeleteAbl(req, res) {
     let {id} = req.body;
     if (
         id && typeof id === "string" && id.length < 25
     ) {
-        try {
-            await dao.deleteIngredient(id);
-            res.status(200).json({});
+        try {           
+            let usedIngredients = await recipeDao.listRecipeIngredients();
+            if (usedIngredients.has(id)){ // check whether ingredient exists in some recipe
+                res.status(400).json({"error": "ingredient is used in some recipe. Ingredient is not deleted"});
+            } else {
+                await dao.deleteIngredient(id);
+                res.status(200).json({});
+            }
         } catch (e) {
             if (e.code === "FAILED_TO_DELETE_ingredient") {
                 res.status(500).json({error: e})
@@ -23,5 +31,16 @@ async function DeleteAbl(req, res) {
         })
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = DeleteAbl;
