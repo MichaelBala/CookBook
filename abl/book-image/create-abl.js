@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const Ajv = require("ajv").default;
-const LibraryDao = require("../../dao/book-dao");
+const LibraryDao = require("../../dao/recipe-dao");
 let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "books.json"))
 const { createBookImageSchema } = require("../../schemas/book-image-schemas");
 

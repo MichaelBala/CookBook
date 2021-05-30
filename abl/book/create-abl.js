@@ -2,7 +2,7 @@ const path = require("path");
 const LibraryDao = require("../../dao/recipe-dao");
 let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "recipes.json"))
 const IngredientsDao = require("../../dao/ingredients-dao");
-let IngredientsDao = new IngredientsDao(path.join(__dirname, "..", "..", "storage", "ingredients.json"))
+let ingredientsDao = new IngredientsDao(path.join(__dirname, "..", "..", "storage", "ingredients.json"))
 
 async function CreateAbl(req, res) {
     let {id, name, ingredientList} = req.body;
@@ -15,7 +15,7 @@ async function CreateAbl(req, res) {
             try {
                 await ingredientsDao.getIngredient(ingredientList[i])
             } catch (e) {
-                if (e.code === "FAILED_TO_GET_AUTHOR") {
+                if (e.code === "FAILED_TO_GET_ingredient") {
                     res.status(400).json({error: e})
                 } else {
                     res.status(500).json({error: e})
