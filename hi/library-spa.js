@@ -68,14 +68,14 @@ export const LibrarySpa = createVisualComponent({
                 leftWrapperProps={{style: {backgroundColor: '#fafafa'}}}
                 top={
                     <UU5.Bricks.Box colorSchema="blue-rich" className="center">
-                        <UU5.Bricks.Lsi lsi={{en: "Ivo's Library", cs: "Ivošova knihovna"}}/>
+                        <UU5.Bricks.Lsi lsi={{en: "MSWA 004 Cookbook of drinks", cs: "MSWA 004 kuchařka drinků"}}/>
                     </UU5.Bricks.Box>
                 }
-                bottom={<UU5.Bricks.Box colorSchema="grey" className="center">Copyright Ivo Milota</UU5.Bricks.Box>}
+                bottom={<UU5.Bricks.Box colorSchema="grey" className="center">Copyright MSWA 004</UU5.Bricks.Box>}
                 left={
                     <UU5.Bricks.Div>
                         <UU5.Bricks.Box colorSchema='green' content='Menu'/>
-                        <UU5.Bricks.LanguageSelector displayedLanguages={["cs", "en", "uk"]}/>
+                        <UU5.Bricks.LanguageSelector displayedLanguages={["cs", "en"]}/>
                         <div className="uu5-common-padding-s">
                             <div>
                                 <UU5.Bricks.Button
@@ -83,7 +83,7 @@ export const LibrarySpa = createVisualComponent({
                                     onClick={goToBookList}
                                 >
                                     <UU5.Bricks.Icon icon="mdi-library-books"/>
-                                    <UU5.Bricks.Lsi lsi={{en: "Books", cs: "Knihy", uk: "Yкраїнський"}}/>
+                                    <UU5.Bricks.Lsi lsi={{en: "Recipes", cs: "Recepty"}}/>
                                 </UU5.Bricks.Button>
 
                             </div>
@@ -93,7 +93,7 @@ export const LibrarySpa = createVisualComponent({
                                     onClick={goToAuthorList}
                                 >
                                     <UU5.Bricks.Icon icon="mdi-library"/>
-                                    <UU5.Bricks.Lsi lsi={{en: "Authors", cs: "Autoři"}}/>
+                                    <UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>
                                 </UU5.Bricks.Button>
                             </div>
                         </div>
