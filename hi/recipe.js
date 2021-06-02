@@ -1,13 +1,16 @@
 //@@viewOn:imports
+
 import React from "react";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import {createVisualComponent} from "uu5g04-hooks";
+import {createVisualComponent, useDataObject} from "uu5g04-hooks";
+import RecipeUpdateForm from "recipeUpdateForm";
+import Calls from "calls";
 //@@viewOff:imports
 
 const STATICS = {
     //@@viewOn:statics
-    displayName: "Author",
+    displayName: "Recipe",
     //@@viewOff:statics
 };
 
@@ -30,7 +33,7 @@ const CLASS_NAMES = {
   `,
 };
 
-export const Author = createVisualComponent({
+export const Recipe = createVisualComponent({
     ...STATICS,
 
     //@@viewOn:propTypes
@@ -40,8 +43,20 @@ export const Author = createVisualComponent({
     //@@viewOff:defaultProps
 
     render(props) {
-        //@@viewOn:private
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
 
+        //@@viewOn:private
+        let recipeDataObject = useDataObject({
+            handlerMap: {
+                load: Calls.getRecipe
+            },
+            initialDtoIn: {
+                data: {
+                    id: urlParams.get("id")
+                }
+            }
+        })
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -51,12 +66,13 @@ export const Author = createVisualComponent({
         const attrs = UU5.Common.VisualComponent.getAttrs(props);
         return (
             <div {...attrs}>
-                <UU5.Bricks.Button content={"book"} onClick={() => UU5.Environment.getRouter().setRoute("book")} />
-                <div>Author</div>
+                <UU5.Bricks.Button content={"ingredient"} onClick={() => UU5.Environment.getRouter().setRoute("ingredient")} />
+                <RecipeUpdateForm />
+                <pre>{JSON.stringify(recipeDataObject.data || {}, null, 2)}</pre>
             </div>
         );
         //@@viewOff:render
     },
 });
 
-export default Author;
+export default Recipe;

@@ -2,13 +2,13 @@
 import React from "react";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import {createVisualComponent, useDataList} from "uu5g04-hooks";
+import {createVisualComponent, useCall, useEffect} from "uu5g04-hooks";
 import Calls from "calls";
 //@@viewOff:imports
 
 const STATICS = {
     //@@viewOn:statics
-    displayName: "AuthorUpdateForm",
+    displayName: "RecipeUpdateForm",
     //@@viewOff:statics
 };
 
@@ -16,14 +16,14 @@ const CLASS_NAMES = {
     welcomeRow: () => Config.Css.css``,
 };
 
-export const AuthorUpdateForm = createVisualComponent({
+export const RecipeUpdateForm = createVisualComponent({
     ...STATICS,
 
     //@@viewOn:propTypes
     propTypes: {
         createItem: UU5.PropTypes.func,
-        setSelectedAuthorData: UU5.PropTypes.func,
-        selectedAuthorData: UU5.PropTypes.object
+        setAddRecipeImageData: UU5.PropTypes.func,
+        addRecipeImageData: UU5.PropTypes.object
     },
     //@@viewOff:propTypes
 
@@ -32,14 +32,21 @@ export const AuthorUpdateForm = createVisualComponent({
 
     render(props) {
         //@@viewOn:private
+        let recipeImageCreateCall = useCall(Calls.recipeImageCreate);
+
         function onSave(opt) {
-            if (props.selectedAuthorData && props.selectedAuthorData.data && props.selectedAuthorData.data.id) {
-                props.selectedAuthorData.handlerMap.update({data: opt.values})
-            } else {
-                props.createItem({data: opt.values})
-            }
-            props.setSelectedAuthorData(null)
+            recipeImageCreateCall.call(
+                {data: {code: props.addRecipeImageData.data.id, data: opt.values.data}}
+            )
         }
+
+        useEffect(() => {
+                if (recipeImageCreateCall.viewState === "ready" && recipeImageCreateCall.data) {
+                    location.reload()
+                }
+            },
+            [recipeImageCreateCall.viewState]
+        )
 
         //@@viewOff:private
 
@@ -48,17 +55,14 @@ export const AuthorUpdateForm = createVisualComponent({
 
         //@@viewOn:render
         const attrs = UU5.Common.VisualComponent.getAttrs(props);
-        let selectedAuthorData = props.selectedAuthorData && props.selectedAuthorData.data || {}
+        let addRecipeImageData = props.addRecipeImageData && props.addRecipeImageData.data || {}
 
         return (
             <div {...attrs} className={"uu5-common-padding-s"}>
                 <UU5.Forms.Form
                     onSave={onSave}
-                    onCancel={() => props.setSelectedAuthorData(null)}
-                    header={selectedAuthorData && selectedAuthorData.id
-                        ? <UU5.Bricks.Lsi lsi={{en: "Update Author", cs: "Upravit autora"}}/>
-                        : <UU5.Bricks.Lsi lsi={{en: "Create Author", cs: "Vytvořit autora"}}/>
-                    }
+                    onCancel={() => props.setAddRecipeImageData(null)}
+                    header={<UU5.Bricks.Lsi lsi={{en: "Add Cover", cs: "Přidat obal"}}/>}
                     spacing={4}
                     level={5}
                     labelColWidth={"xs-12 s-12 m4 l4 xl4"}
@@ -69,15 +73,21 @@ export const AuthorUpdateForm = createVisualComponent({
                         label="id"
                         placeholder="id"
                         required
-                        value={selectedAuthorData && selectedAuthorData.id}
-                        readOnly={selectedAuthorData && selectedAuthorData.id}
+                        value={addRecipeImageData && addRecipeImageData.id}
+                        readOnly={true}
                     />
                     <UU5.Forms.Text
                         name="name"
                         label={<UU5.Bricks.Lsi lsi={{en: "Name", cs: "Název"}}/>}
                         placeholder="Some text..."
                         required
-                        value={selectedAuthorData && selectedAuthorData.name}
+                        value={addRecipeImageData && addRecipeImageData.name}
+                        readOnly={true}
+                    />
+                    <UU5.Forms.File
+                        name="data"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Cover", cs: "Obal"}}/>}
+                        required
                     />
                     <UU5.Bricks.Line size={"s"}/>
                     <UU5.Forms.Controls/>
@@ -88,4 +98,4 @@ export const AuthorUpdateForm = createVisualComponent({
     },
 });
 
-export default AuthorUpdateForm;
+export default RecipeUpdateForm;

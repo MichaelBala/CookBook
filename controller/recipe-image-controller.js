@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const Busboy = require("busboy");
-const CreateAbl = require("../abl/book-image/create-abl");
-const GetAbl = require("../abl/book-image/get-abl");
+const CreateAbl = require("../abl/recipe-image/create-abl");
+const GetAbl = require("../abl/recipe-image/get-abl");
 
 router.post("/create", (req,res) => {
     let busboy = new Busboy({ headers: req.headers, limits: {files: 1} });

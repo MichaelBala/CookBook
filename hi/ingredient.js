@@ -2,14 +2,12 @@
 import React from "react";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import {createVisualComponent, useDataObject} from "uu5g04-hooks";
-import BookUpdateForm from "bookUpdateForm";
-import Calls from "calls";
+import {createVisualComponent} from "uu5g04-hooks";
 //@@viewOff:imports
 
 const STATICS = {
     //@@viewOn:statics
-    displayName: "Book",
+    displayName: "Ingredient",
     //@@viewOff:statics
 };
 
@@ -32,7 +30,7 @@ const CLASS_NAMES = {
   `,
 };
 
-export const Book = createVisualComponent({
+export const Ingredient = createVisualComponent({
     ...STATICS,
 
     //@@viewOn:propTypes
@@ -42,20 +40,8 @@ export const Book = createVisualComponent({
     //@@viewOff:defaultProps
 
     render(props) {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-
         //@@viewOn:private
-        let bookDataObject = useDataObject({
-            handlerMap: {
-                load: Calls.getBook
-            },
-            initialDtoIn: {
-                data: {
-                    id: urlParams.get("id")
-                }
-            }
-        })
+
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -65,13 +51,12 @@ export const Book = createVisualComponent({
         const attrs = UU5.Common.VisualComponent.getAttrs(props);
         return (
             <div {...attrs}>
-                <UU5.Bricks.Button content={"author"} onClick={() => UU5.Environment.getRouter().setRoute("author")} />
-                <BookUpdateForm />
-                <pre>{JSON.stringify(bookDataObject.data || {}, null, 2)}</pre>
+                <UU5.Bricks.Button content={"recipe"} onClick={() => UU5.Environment.getRouter().setRoute("recipe")} />
+                <div>Ingredient</div>
             </div>
         );
         //@@viewOff:render
     },
 });
 
-export default Book;
+export default Ingredient;

@@ -1,6 +1,6 @@
 "use strict";
 
-const getBookImageSchema = {
+const getRecipeImageSchema = {
     "type": "object",
     "properties": {
         "code": { "type": "string"},
@@ -8,7 +8,7 @@ const getBookImageSchema = {
     "required": ["code"]
 };
 
-const createBookImageSchema = {
+const createRecipeImageSchema = {
     "type": "object",
     "properties": {
         "code": { "type": "string"},
@@ -17,6 +17,6 @@ const createBookImageSchema = {
 };
 
 module.exports = {
-    createBookImageSchema,
-    getBookImageSchema,
+    createRecipeImageSchema,
+    getRecipeImageSchema,
 };

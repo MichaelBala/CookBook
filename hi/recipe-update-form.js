@@ -8,7 +8,7 @@ import Calls from "calls";
 
 const STATICS = {
     //@@viewOn:statics
-    displayName: "BookUpdateForm",
+    displayName: "RecipeUpdateForm",
     //@@viewOff:statics
 };
 
@@ -16,14 +16,14 @@ const CLASS_NAMES = {
     welcomeRow: () => Config.Css.css``,
 };
 
-export const BookUpdateForm = createVisualComponent({
+export const RecipeUpdateForm = createVisualComponent({
     ...STATICS,
 
     //@@viewOn:propTypes
     propTypes: {
         createItem: UU5.PropTypes.func,
-        setSelectedBookData: UU5.PropTypes.func,
-        selectedBookData: UU5.PropTypes.object
+        setSelectedRecipeData: UU5.PropTypes.func,
+        selectedRecipeData: UU5.PropTypes.object
     },
     //@@viewOff:propTypes
 
@@ -34,31 +34,31 @@ export const BookUpdateForm = createVisualComponent({
         //@@viewOn:private
         const dataListResult = useDataList({
             handlerMap: {
-                load: Calls.listAuthors,
+                load: Calls.Ingredients,
             },
             initialDtoIn: {data: {}}
         });
 
-        let authorList = [];
-        dataListResult.data && dataListResult.data.forEach(author => {
-            if (author.data.approved) {
-                authorList.push(
+        let ingredientList = [];
+        dataListResult.data && dataListResult.data.forEach(ingredient => {
+            if (ingredient.data.approved) {
+                ingredientList.push(
                     <UU5.Forms.Select.Option
-                        key={author.data.id}
-                        value={author.data.id}
-                        content={author.data.name}
+                        key={ingredient.data.id}
+                        value={ingredient.data.id}
+                        content={ingredient.data.name}
                     />
                 )
             }
         })
 
         function onSave(opt) {
-            if (props.selectedBookData && props.selectedBookData.data && props.selectedBookData.data.id) {
-                props.selectedBookData.handlerMap.update({data: opt.values})
+            if (props.selectedRecipeData && props.selectedRecipeData.data && props.selectedRecipeData.data.id) {
+                props.selectedRecipeData.handlerMap.update({data: opt.values})
             } else {
                 props.createItem({data: opt.values})
             }
-            props.setSelectedBookData(null)
+            props.setSelectedRecipeData(null)
         }
 
         //@@viewOff:private
@@ -68,16 +68,16 @@ export const BookUpdateForm = createVisualComponent({
 
         //@@viewOn:render
         const attrs = UU5.Common.VisualComponent.getAttrs(props);
-        let selectedBookData = props.selectedBookData && props.selectedBookData.data || {}
+        let selectedRecipeData = props.selectedRecipeData && props.selectedRecipeData.data || {}
 
         return (
             <div {...attrs} className={"uu5-common-padding-s"}>
                 <UU5.Forms.Form
                     onSave={onSave}
-                    onCancel={() => props.setSelectedBookData(null)}
-                    header={selectedBookData && selectedBookData.id
-                        ? <UU5.Bricks.Lsi lsi={{en: "Update Book", cs: "Upravit knihu"}}/>
-                        : <UU5.Bricks.Lsi lsi={{en: "Create Book", cs: "Vytvořit knihu"}}/>
+                    onCancel={() => props.setSelectedRecipeData(null)}
+                    header={selectedRecipeData && selectedRecipeData.id
+                        ? <UU5.Bricks.Lsi lsi={{en: "Update Recipe", cs: "Upravit knihu"}}/>
+                        : <UU5.Bricks.Lsi lsi={{en: "Create Recipe", cs: "Vytvořit knihu"}}/>
                     }
                     spacing={4}
                     level={5}
@@ -89,24 +89,24 @@ export const BookUpdateForm = createVisualComponent({
                         label="id"
                         placeholder="id"
                         required
-                        value={selectedBookData && selectedBookData.id}
-                        readOnly={selectedBookData && selectedBookData.id}
+                        value={selectedRecipeData && selectedRecipeData.id}
+                        readOnly={selectedRecipeData && selectedRecipeData.id}
                     />
                     <UU5.Forms.Text
                         name="name"
                         label={<UU5.Bricks.Lsi lsi={{en: "Name", cs: "Název"}}/>}
                         placeholder="Some text..."
                         required
-                        value={selectedBookData && selectedBookData.name}
+                        value={selectedRecipeData && selectedRecipeData.name}
                     />
                     <UU5.Forms.Select
-                        name="authorList"
-                        label={<UU5.Bricks.Lsi lsi={{en: "Authors", cs: "Autoři"}}/>}
+                        name="ingredientList"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>}
                         multiple={true}
                         reguired
-                        value={selectedBookData && selectedBookData.authorList}
+                        value={selectedRecipeData && selectedRecipeData.ingredientList}
                     >
-                        {authorList}
+                        {ingredientList}
                     </UU5.Forms.Select>
                     <UU5.Bricks.Line size={"s"}/>
                     <UU5.Forms.Controls/>
@@ -117,4 +117,4 @@ export const BookUpdateForm = createVisualComponent({
     },
 });
 
-export default BookUpdateForm;
+export default RecipeUpdateForm;
