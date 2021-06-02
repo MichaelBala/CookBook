@@ -6,7 +6,7 @@ const rf = fs.promises.readFile;
 const wf = fs.promises.writeFile;
 
 // 1
-const DEFAULT_STORAGE_PATH = path.join(__dirname, "storage", "Ingredients.json");
+const DEFAULT_STORAGE_PATH = path.join(__dirname, "storage", "ingredients.json");
 
 class LibraryDao {
     constructor(storagePath) {

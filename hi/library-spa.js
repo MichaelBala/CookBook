@@ -8,6 +8,13 @@ import Book from "book";
 import Author from "author";
 import BookList from "bookList";
 import AuthorList from "authorList";
+
+
+import Recipe from "recipe";
+import Ingredient from "ingredient";
+import RecipeList from "recipeList";
+import IngredientList from "ingredientList";
+
 //@@viewOff:imports
 
 const STATICS = {
@@ -54,6 +61,14 @@ export const LibrarySpa = createVisualComponent({
             UU5.Environment.getRouter().setRoute("authorList")
         }
 
+        function goToRecipeList() {
+            UU5.Environment.getRouter().setRoute("recipeList")
+        }
+
+        function goToIngredientList() {
+            UU5.Environment.getRouter().setRoute("ingredientList")
+        }
+
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -96,6 +111,26 @@ export const LibrarySpa = createVisualComponent({
                                     <UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>
                                 </UU5.Bricks.Button>
                             </div>
+
+                            <div>
+                                <UU5.Bricks.Button
+                                    bgStyle={"transparent"}
+                                    onClick={goToRecipeList}
+                                >
+                                    <UU5.Bricks.Icon icon="mdi-library-books"/>
+                                    <UU5.Bricks.Lsi lsi={{en: "Recipes", cs: "Recepty"}}/>
+                                </UU5.Bricks.Button>
+
+                            </div>
+                            <div>
+                                <UU5.Bricks.Button
+                                    bgStyle={"transparent"}
+                                    onClick={goToIngredientList}
+                                >
+                                    <UU5.Bricks.Icon icon="mdi-library"/>
+                                    <UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>
+                                </UU5.Bricks.Button>
+                            </div>
                         </div>
                     </UU5.Bricks.Div>
                 }
@@ -112,6 +147,11 @@ export const LibrarySpa = createVisualComponent({
                         "authorList": {component: <AuthorList/>},
                         "book": {component: <Book/>},
                         "author": {component: <Author/>},
+
+                        "recipeList": {component: <RecipeList/>},
+                        "ingredientList": {component: <IngredientList/>},
+                        "recipe": {component: <Recipe/>},
+                        "ingredient": {component: <Ingredient/>}, 
                     }}/>
             </UU5.Bricks.Page>
         );

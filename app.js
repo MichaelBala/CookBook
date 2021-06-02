@@ -7,6 +7,11 @@ const bookRouter = require("./controller/book-controller");
 const authorRouter = require("./controller/author-controller");
 const bookImageRouter = require("./controller/book-image-controller");
 
+
+const recipeRouter = require("./controller/recipe-controller");
+const ingredientRouter = require("./controller/ingredient-controller");
+const recipeImageRouter = require("./controller/recipe-image-controller");
+
 const app = express();
 
 app.use(express.json());
@@ -15,6 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/book/", bookRouter);
 app.use("/author/", authorRouter);
 app.use("/bookImage/", bookImageRouter);
+
+app.use("/recipe/", recipeRouter);
+app.use("/ingredient/", ingredientRouter);
+app.use("/recipeImage/", recipeImageRouter);
+
+
 
 app.use("/library-spa.js", function(req,res) {
     res.sendFile(path.join(__dirname+'/hi/library-spa.js'));
@@ -40,6 +51,37 @@ app.use("/book-update-form.js", function(req,res) {
 app.use("/book-image-form.js", function(req,res) {
     res.sendFile(path.join(__dirname+'/hi/book-image-form.js'));
 })
+
+
+
+
+app.use("/recipe.js", function(req,res) {
+    res.sendFile(path.join(__dirname+'/hi/recipe.js'));
+})
+app.use("/ingredient.js", function(req,res) {
+    res.sendFile(path.join(__dirname+'/hi/ingredient.js'));
+})
+app.use("/ingredient-list.js", function(req,res) {
+    res.sendFile(path.join(__dirname+'/hi/ingredient-list.js'));
+})
+app.use("/ingredient-update-form.js", function(req,res) {
+    res.sendFile(path.join(__dirname+'/hi/ingredient-update-form.js'));
+})
+app.use("/recipe-list.js", function(req,res) {
+    res.sendFile(path.join(__dirname+'/hi/recipe-list.js'));
+})
+app.use("/recipe-update-form.js", function(req,res) {
+    res.sendFile(path.join(__dirname+'/hi/recipe-update-form.js'));
+})
+app.use("/recipe-image-form.js", function(req,res) {
+    res.sendFile(path.join(__dirname+'/hi/recipe-image-form.js'));
+})
+
+
+
+
+
+
 app.use("/calls.js", function(req,res) {
     res.sendFile(path.join(__dirname+'/hi/calls.js'));
 })

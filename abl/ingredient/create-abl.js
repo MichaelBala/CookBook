@@ -1,6 +1,6 @@
 const path = require("path");
-const LibraryDao = require("../../dao/Ingredients-dao");
-let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "Ingredients.json"))
+const LibraryDao = require("../../dao/ingredients-dao");
+let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "ingredients.json"))
 
 async function CreateAbl(req, res) {
     let {id, name} = req.body;
