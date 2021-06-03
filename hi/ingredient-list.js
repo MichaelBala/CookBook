@@ -58,6 +58,10 @@ export const IngredientList = createVisualComponent({
                 header: <UU5.Bricks.Lsi lsi={{en: "Name", cs: "Jméno"}}/>
             },
             {
+                cell: cellProps => cellProps.data.data.measure,
+                header: <UU5.Bricks.Lsi lsi={{en: "Unit", cs: "Jednotka"}}/>
+            },
+            {
                 cell: cellProps => {
                     if (cellProps.data.data.approved) {
                         return (
