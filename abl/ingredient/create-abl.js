@@ -3,12 +3,13 @@ const LibraryDao = require("../../dao/ingredients-dao");
 let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "ingredients.json"))
 
 async function CreateAbl(req, res) {
-    let {id, name} = req.body;
+    let {id, name, measure} = req.body;
     if (
         name && typeof name === "string" && name.length < 30 &&
-        id && typeof id === "string" && id.length < 25
+        id && typeof id === "string" && id.length < 25 &&
+        measure && typeof measure === "string" && measure.length < 10
     ) {
-        const ingredient = {id, name, approved: false};
+        const ingredient = {id, name, measure, approved: false};
         try {
             let result = await dao.addIngredient(ingredient);
             res.status(200).json(result);

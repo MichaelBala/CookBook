@@ -93,7 +93,7 @@ class RecipeDao {
     // list all unique ingredients in recipes
     async listRecipeIngredients() {
         //window.alert("spusteno")
-        console.log("start list recipe Ingredients")
+        //console.log("start list recipe Ingredients")
         const recipes = await this._loadAllRecipes();
         
         let ingredientList = new Set;
@@ -111,7 +111,7 @@ class RecipeDao {
                 }
             //}
         }
-        console.log(ingredientList)
+        //console.log(ingredientList)
         return ingredientList;
     }
 
