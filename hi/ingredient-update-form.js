@@ -84,7 +84,7 @@ export const IngredientUpdateForm = createVisualComponent({
                         label={<UU5.Bricks.Lsi lsi={{en: "Measure Unit", cs: "Měrná Jednotka"}}/>}
                         placeholder="ml, pieces, ..."
                         required
-                        value={selectedIngredientData && selectedIngredientData.name}
+                        value={selectedIngredientData && selectedIngredientData.measure}
                     />
                     <UU5.Bricks.Line size={"s"}/>
                     <UU5.Forms.Controls/>
