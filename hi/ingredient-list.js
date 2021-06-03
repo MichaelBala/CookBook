@@ -46,6 +46,7 @@ export const IngredientList = createVisualComponent({
         const [showAcceptedOnly, setShowAcceptedOnly] = useState(true)
 
         const columns = [
+            /* id neni treba ukazovat, ale necham zakoment kdyby prece
             {
                 cell: cellProps => {
                     return cellProps.data.data.id
@@ -53,6 +54,7 @@ export const IngredientList = createVisualComponent({
                 header: "ID",
                 width: "200px"
             },
+            */
             {
                 cell: cellProps => cellProps.data.data.name,
                 header: <UU5.Bricks.Lsi lsi={{en: "Name", cs: "Jméno"}}/>
@@ -66,11 +68,7 @@ export const IngredientList = createVisualComponent({
                     if (cellProps.data.data.approved) {
                         return (
                             <div className={"right"}>
-                                <UU5.Bricks.Button
-                                    content={<UU5.Bricks.Icon icon={"mdi-book-open"}/>}
-                                    onClick={() => showIngredient(cellProps.data.data.id)}
-                                    bgStyle={"transparent"}
-                                />
+                                                               
                                 <UU5.Bricks.Button
                                     content={<UU5.Bricks.Icon icon={"mdi-pencil"}/>}
                                     colorSchema={"blue"}

@@ -2,7 +2,8 @@
   "148374": {
     "id": "148374",
     "name": "Vodka",
-    "measure": "ml"
+    "measure": "ml",
+    "approved": true
   },
   "151552": {
     "id": "151552",
