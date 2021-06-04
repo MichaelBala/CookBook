@@ -36,6 +36,10 @@ let Calls = {
         let commandUri = Calls.getCommandUri("recipe/list");
         return call("get", commandUri, dtoIn.data);
     },
+    listUsedIngredients(dtoIn) {
+        let commandUri = Calls.getCommandUri("recipe/listUsedIngredients");
+        return call("get", commandUri, dtoIn.data);
+    },
 
     recipeImageCreate(dtoIn) {
         let commandUri = Calls.getCommandUri("recipeImage/create");

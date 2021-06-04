@@ -6,6 +6,7 @@ const GetAbl = require("../abl/recipe/get-abl");
 const UpdateAbl = require("../abl/recipe/update-abl");
 const DeleteAbl = require("../abl/recipe/delete-abl");
 const ListAbl = require("../abl/recipe/list-abl");
+const ListUsedIngredientsAbl = require("../abl/recipe/listUsedIngredients-abl");
 
 router.post("/create", async (req, res) => {
     await CreateAbl(req, res)
@@ -25,6 +26,11 @@ router.post("/delete", async (req, res) => {
 
 router.get("/list", async (req, res) => {
     await ListAbl(req, res)
+});
+
+router.get("/listUsedIngredients", async (req, res) => {
+    await ListUsedIngredientsAbl(req, res)
+    //console.log(res)
 });
 
 module.exports = router

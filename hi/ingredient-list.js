@@ -29,6 +29,27 @@ export const IngredientList = createVisualComponent({
 
     render(props) {
         //@@viewOn:private
+        function onDelete(data) {
+            
+            //z get a set of exsiting ingredients from recipes 
+            let usedIngredients = new Set;
+            RecipeListResult.data.forEach(getID);
+            
+            function getID(item) {
+                usedIngredients.add(item.data);
+            }  
+
+           
+            // if ingredients are in the set dont delete, otherwise delete
+            if (usedIngredients.has(data.data.id)){
+                console.log("nemazu vole")
+            }else{
+                data.handlerMap.delete({data: {id: data.data.id}})
+            }
+            
+            
+        }
+
         const dataListResult = useDataList({
             handlerMap: {
                 load: Calls.listIngredients,
@@ -41,6 +62,16 @@ export const IngredientList = createVisualComponent({
             },
             initialDtoIn: {data: {}}
         });
+        
+        const RecipeListResult = useDataList({
+            handlerMap: {
+                load: Calls.listUsedIngredients,
+            },
+            itemHandlerMap: {       
+            },
+            initialDtoIn: {data: {}}
+        });
+
 
         const [selectedIngredientData, setSelectedIngredientData] = useState(null)
         const [showAcceptedOnly, setShowAcceptedOnly] = useState(true)
@@ -79,7 +110,7 @@ export const IngredientList = createVisualComponent({
                                     content={<UU5.Bricks.Icon icon={"mdi-delete"}/>}
                                     colorSchema={"red"}
                                     bgStyle={"transparent"}
-                                    onClick={() => cellProps.data.handlerMap.delete({data: {id: cellProps.data.data.id}})}
+                                    onClick={() => onDelete(cellProps.data)}
                                 />
                             </div>
                         )
