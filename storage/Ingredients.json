@@ -5,9 +5,21 @@
     "measure": "ml",
     "approved": true
   },
+  "149104": {
+    "id": "149104",
+    "name": "Gin",
+    "measure": "ml",
+    "approved": true
+  },
   "151552": {
     "id": "151552",
     "name": "Soda",
+    "measure": "ml",
+    "approved": true
+  },
+  "161552": {
+    "id": "161552",
+    "name": "Tonic",
     "measure": "ml",
     "approved": true
   },

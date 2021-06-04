@@ -3,8 +3,8 @@
 import React from "react";
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import {createVisualComponent, useDataObject} from "uu5g04-hooks";
-import RecipeUpdateForm from "recipeUpdateForm";
+import {createVisualComponent, useDataObject, useState} from "uu5g04-hooks";
+//import RecipeUpdateForm from "recipeUpdateForm";
 import Calls from "calls";
 //@@viewOff:imports
 
@@ -57,7 +57,23 @@ export const Recipe = createVisualComponent({
                 }
             }
         })
-        let newList = recipeDataObject.data;
+        
+        
+
+        const [newList, setNewList] = useState(recipeDataObject.data);
+
+        function functionOne(opt){
+            opt.component.onChangeDefault(opt, () => {
+                
+                        let value = opt.value;
+                        let newIngredientList = JSON.parse(JSON.stringify(recipeDataObject.data));
+                        Object.keys(recipeDataObject.data.ingredientList).forEach(function(index){
+                            newIngredientList.ingredientList[index] *= value;
+                        });
+
+                        setNewList(newIngredientList)
+                    })
+        };
 
         //@@viewOff:private
 
@@ -71,31 +87,24 @@ export const Recipe = createVisualComponent({
                 <UU5.Bricks.Button content={"ingredient"} onClick={() => UU5.Environment.getRouter().setRoute("ingredient")} />
                     
                 <UU5.Forms.Slider
+                    labelColWidth={"xs-12 s-12 m4 l4 xl4"}
+                    inputColWidth={"xs-12 s-12 m6 l6 xl6"}
                     label="Počet drinků"
-                    name = "input"
                     message="Zvolte počet drinků pro přepočet receptu"
                     size="l"
                     min={0}
                     max={100}
                     step={1}
-                    onChange={opt => {
-                        opt.component.onChangeDefault(opt)
-                        let value = opt.value;
-                       // console.log(recipeDataObject.data.ingredientList)
-                        Object.keys(newList.ingredientList).forEach(function(index){
-                            newList.ingredientList[index] *= value;
-                        });
-                        
-                        console.log(newList)
-                    }} 
+                    onChange={opt => functionOne(opt)}
+                    controlled={false}
                     />
-                    
+                                        
                <pre>{JSON.stringify(newList || {}, null, 2)}</pre>
             </div>
             
         );
         //@@viewOff:render
-    },
+    }
 });
 
 export default Recipe;

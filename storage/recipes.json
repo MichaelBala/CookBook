@@ -16,17 +16,14 @@
       "preparationTime": 15,
       "instructions":"Smíchejte ingredience do sebe.",
       "ingredientList": {"148374":15,"161240":200,"152182":3}
-    },
-  "ginTonic": {
-    "id": "ginTonic",
-    "author": "Petr Marný",
-    "name": "Gin Tonic",
-    "difficulty": "Easy",
-    "preparationTime": 5,
-    "instructions": "Odměřit panák, nalít do sklenice, přidat tonik, led, plátek citrusu a je hotovo.",
-    "ingredientList": {
-      "149104": 45,
-      "161240": 150
-    }
+  },
+    "ginTonic": {
+      "id": "ginTonic",
+      "author": "Petr Marný",
+      "name": "Gin Tonic",
+      "difficulty": "Easy",
+      "preparationTime": 5,
+      "instructions": "Odměřit panák, nalít do sklenice, přidat tonik, led, plátek citrusu a je hotovo.",
+      "ingredientList": {"149104": 30,"161552": 150, "152182":3}
   }
 }
