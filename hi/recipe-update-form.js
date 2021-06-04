@@ -69,7 +69,7 @@ export const RecipeUpdateForm = createVisualComponent({
         //@@viewOn:render
         const attrs = UU5.Common.VisualComponent.getAttrs(props);
         let selectedRecipeData = props.selectedRecipeData && props.selectedRecipeData.data || {}
-
+        
         return (
             <div {...attrs} className={"uu5-common-padding-s"}>
                 <UU5.Forms.Form
@@ -88,7 +88,7 @@ export const RecipeUpdateForm = createVisualComponent({
                         name="id"
                         label="id"
                         placeholder="id"
-                        required
+                        reguired
                         value={selectedRecipeData && selectedRecipeData.id}
                         readOnly={selectedRecipeData && selectedRecipeData.id}
                     />
@@ -96,7 +96,7 @@ export const RecipeUpdateForm = createVisualComponent({
                         name="name"
                         label={<UU5.Bricks.Lsi lsi={{en: "Name", cs: "Název"}}/>}
                         placeholder="Some text..."
-                        required
+                        reguired
                         value={selectedRecipeData && selectedRecipeData.name}
                     />
                     <UU5.Forms.Select
@@ -106,13 +106,16 @@ export const RecipeUpdateForm = createVisualComponent({
                         reguired
                         value={selectedRecipeData && selectedRecipeData.ingredientList}
                     >
+                       
                         {ingredientList}
                     </UU5.Forms.Select>
                     <UU5.Bricks.Line size={"s"}/>
                     <UU5.Forms.Controls/>
                 </UU5.Forms.Form>
             </div>
+            
         );
+        
         //@@viewOff:render
     },
 });

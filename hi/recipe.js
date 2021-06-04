@@ -57,6 +57,8 @@ export const Recipe = createVisualComponent({
                 }
             }
         })
+        let newList = recipeDataObject.data;
+
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -67,9 +69,30 @@ export const Recipe = createVisualComponent({
         return (
             <div {...attrs}>
                 <UU5.Bricks.Button content={"ingredient"} onClick={() => UU5.Environment.getRouter().setRoute("ingredient")} />
-                <RecipeUpdateForm />
-                <pre>{JSON.stringify(recipeDataObject.data || {}, null, 2)}</pre>
+                    
+                <UU5.Forms.Slider
+                    label="Počet drinků"
+                    name = "input"
+                    message="Zvolte počet drinků pro přepočet receptu"
+                    size="l"
+                    min={0}
+                    max={100}
+                    step={1}
+                    onChange={opt => {
+                        opt.component.onChangeDefault(opt)
+                        let value = opt.value;
+                       // console.log(recipeDataObject.data.ingredientList)
+                        Object.keys(newList.ingredientList).forEach(function(index){
+                            newList.ingredientList[index] *= value;
+                        });
+                        
+                        console.log(newList)
+                    }} 
+                    />
+                    
+               <pre>{JSON.stringify(newList || {}, null, 2)}</pre>
             </div>
+            
         );
         //@@viewOff:render
     },

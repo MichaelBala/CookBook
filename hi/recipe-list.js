@@ -191,6 +191,9 @@ export const RecipeList = createVisualComponent({
                         setAddRecipeImageData={setAddRecipeImageData}
                         addRecipeImageData={addRecipeImageData}
                     />
+                                        <div>
+                        {console.log(selectedRecipeData)}
+                    </div>
                 </UU5.Bricks.Modal>
                 <UU5.Bricks.Header content={<UU5.Bricks.Lsi lsi={{en: "Recipe List", cs: "Seznam receptů"}}/>} level={3}/>
                 <div className={"right"}>

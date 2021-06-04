@@ -37,7 +37,7 @@ export const IngredientUpdateForm = createVisualComponent({
                 props.selectedIngredientData.handlerMap.update({data: opt.values})
             } else {
                 props.createItem({data: opt.values})
-            }
+            }            
             props.setSelectedIngredientData(null)
         }
 
