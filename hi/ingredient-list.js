@@ -42,7 +42,8 @@ export const IngredientList = createVisualComponent({
            
             // if ingredients are in the set dont delete, otherwise delete
             if (usedIngredients.has(data.data.id)){
-                console.log("nemazu vole")
+                //toDo: make alert nicer (uu component?)
+                alert("The ingredient was not deleted! It exists in some recipe.");
             }else{
                 data.handlerMap.delete({data: {id: data.data.id}})
             }
