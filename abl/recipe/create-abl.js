@@ -5,10 +5,19 @@ const IngredientsDao = require("../../dao/ingredients-dao");
 let ingredientsDao = new IngredientsDao(path.join(__dirname, "..", "..", "storage", "ingredients.json"))
 
 async function CreateAbl(req, res) {
-    let {id, name, ingredientList} = req.body;
+    let {id, name, difficulty, preparationTime, instructions, ingredientList, author} = req.body;
+
+    // převedení pole na objekt
+    let IngredientListObj = {}
+    for (const key of ingredientList){
+        IngredientListObj[key] = 50
+    }
     if (
         name && typeof name === "string" && name.length < 200 &&
         ingredientList && ingredientList.length > 0 && ingredientList.length < 10 &&
+        difficulty && typeof difficulty === "string" && difficulty.length < 50 &&
+        preparationTime && preparationTime < 1000 &&
+        instructions && instructions.length < 10000 &&
         id && typeof id === "string" && id.length < 25
     ) {
         for (let i = 0; i< ingredientList.length; i++) {
@@ -22,7 +31,8 @@ async function CreateAbl(req, res) {
                 }
             }
         }
-        const recipe = {id, name, ingredientList};
+        const recipe = {id, name, difficulty, preparationTime, instructions, author};
+        recipe.ingredientList = IngredientListObj // vložení objektu do výsledného objektu
         try {
             let result = await dao.addRecipe(recipe);
             res.status(200).json(result);
