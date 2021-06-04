@@ -64,7 +64,7 @@ export const Recipe = createVisualComponent({
 
         function functionOne(opt){
             opt.component.onChangeDefault(opt, () => {
-                
+
                         let value = opt.value;
                         let newIngredientList = JSON.parse(JSON.stringify(recipeDataObject.data));
                         Object.keys(recipeDataObject.data.ingredientList).forEach(function(index){
@@ -92,14 +92,14 @@ export const Recipe = createVisualComponent({
                     label="Počet drinků"
                     message="Zvolte počet drinků pro přepočet receptu"
                     size="l"
-                    min={0}
+                    min={1}
                     max={100}
                     step={1}
                     onChange={opt => functionOne(opt)}
                     controlled={false}
                     />
                                         
-               <pre>{JSON.stringify(newList || {}, null, 2)}</pre>
+               <pre>{JSON.stringify(newList || recipeDataObject.data, null, 2)}</pre>
             </div>
             
         );
