@@ -7,14 +7,10 @@ let ingredientsDao = new IngredientsDao(path.join(__dirname, "..", "..", "storag
 async function CreateAbl(req, res) {
     let {id, name, difficulty, preparationTime, instructions, ingredientList, author} = req.body;
 
-    // převedení pole na objekt
-    let IngredientListObj = {}
-    for (const key of ingredientList){
-        IngredientListObj[key] = 50
-    }
+
     if (
         name && typeof name === "string" && name.length < 200 &&
-        ingredientList && ingredientList.length > 0 && ingredientList.length < 10 &&
+        ingredientList && Object.keys(ingredientList).length > 0 &&
         difficulty && typeof difficulty === "string" && difficulty.length < 50 &&
         preparationTime && preparationTime < 1000 &&
         instructions && instructions.length < 10000 &&
@@ -31,8 +27,7 @@ async function CreateAbl(req, res) {
                 }
             }
         }
-        const recipe = {id, name, difficulty, preparationTime, instructions, author};
-        recipe.ingredientList = IngredientListObj // vložení objektu do výsledného objektu
+        const recipe = {id, name, difficulty, preparationTime, instructions, ingredientList, author};
         try {
             let result = await dao.addRecipe(recipe);
             res.status(200).json(result);
