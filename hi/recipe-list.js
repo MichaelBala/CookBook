@@ -54,6 +54,7 @@ export const RecipeList = createVisualComponent({
 
         const [selectedRecipeData, setSelectedRecipeData] = useState(null)
         const [addRecipeImageData, setAddRecipeImageData] = useState(null)
+        //const [newRecipeState, setRecipeState] = useState(null)
 
         const columns = [
             {
@@ -170,6 +171,30 @@ export const RecipeList = createVisualComponent({
             UU5.Environment.getRouter().setRoute("recipe", {id: id})
         }
 
+        function filterRecipe(text) {
+
+            var results = [];
+            let toSearch = text.value.replace(" ","").toLowerCase();
+
+            for(var i=0; i< dataListResult.data.length; i++) {
+                Object.keys(dataListResult.data[i].data).forEach(function(index){
+                    //console.log(dataListResult.data[i].data[index]);
+                    console.log(toSearch);
+/*                     let newData = dataListResult.data[i].data[index]
+                    newDat */
+                     if(dataListResult.data[i].data[index].toLowerCase && dataListResult.data[i].data[index].toLowerCase().indexOf(toSearch)!=-1) {
+                        results.push(dataListResult.data[i].data);
+                        console.log(results);
+                    } 
+                })
+            }
+
+/*             Object.keys(dataListResult.data).forEach(function(index){
+                console.log(dataListResult.data[index].data)
+            }); */
+            
+            //console.log(dataListResult.data);
+        }
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -191,9 +216,7 @@ export const RecipeList = createVisualComponent({
                         setAddRecipeImageData={setAddRecipeImageData}
                         addRecipeImageData={addRecipeImageData}
                     />
-                                        <div>
                         {console.log(selectedRecipeData)}
-                    </div>
                 </UU5.Bricks.Modal>
                 <UU5.Bricks.Header content={<UU5.Bricks.Lsi lsi={{en: "Recipe List", cs: "Seznam receptů"}}/>} level={3}/>
                 <div className={"right"}>
@@ -202,6 +225,18 @@ export const RecipeList = createVisualComponent({
                         colorSchema={"green"}
                         onClick={() => setSelectedRecipeData({data: {}})}
                     />
+                </div>
+                <div className={"left"}>
+                <UU5.Forms.TextButton
+                    label='Search'
+                    placeholder='Insert text here.'
+                    size="L"
+                    buttons={[{
+                        icon: 'mdi-magnify',
+                        onClick: (opt) => filterRecipe(opt),
+                        colorSchema: 'default',
+                    }]}
+                />
                 </div>
                 {getChild()}
             </div>
