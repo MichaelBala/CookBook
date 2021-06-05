@@ -128,7 +128,7 @@ export const IngredientList = createVisualComponent({
                                     content={<UU5.Bricks.Icon icon={"mdi-delete"}/>}
                                     colorSchema={"red"}
                                     bgStyle={"transparent"}
-                                    onClick={() => cellProps.data.handlerMap.delete({data: {id: cellProps.data.data.id}})}
+                                    onClick={() => onDelete(cellProps.data)}
                                 />
                             </div>
                         )
