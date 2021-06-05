@@ -106,7 +106,7 @@ class RecipeDao {
 
                // iterate through allingredients in recipe
                 for (let ingredient in recipes[recipe]["ingredientList"]) {
-                    console.log(ingredient)
+                   // console.log(ingredient)
                     ingredientList.add(ingredient)
                 }
             //}

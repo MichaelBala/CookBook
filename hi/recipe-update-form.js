@@ -34,7 +34,7 @@ export const RecipeUpdateForm = createVisualComponent({
         //@@viewOn:private
         const dataListResult = useDataList({
             handlerMap: {
-                load: Calls.Ingredients,
+                load: Calls.listIngredients,
             },
             initialDtoIn: {data: {}}
         });
@@ -46,12 +46,14 @@ export const RecipeUpdateForm = createVisualComponent({
                     <UU5.Forms.Select.Option
                         key={ingredient.data.id}
                         value={ingredient.data.id}
-                        content={ingredient.data.name}
+                        content={ingredient.data.name} 
                     />
                 )
             }
         })
-
+        function loadIngredients(recipeObj) {
+            return Object.keys(recipeObj.ingredientList)
+        }
         function onSave(opt) {
             if (props.selectedRecipeData && props.selectedRecipeData.data && props.selectedRecipeData.data.id) {
                 props.selectedRecipeData.handlerMap.update({data: opt.values})
@@ -99,16 +101,50 @@ export const RecipeUpdateForm = createVisualComponent({
                         reguired
                         value={selectedRecipeData && selectedRecipeData.name}
                     />
+                    <UU5.Forms.Text
+                        name="author"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Author", cs: "Autor"}}/>}
+                        placeholder="Some text..."
+                        required
+                        value={selectedRecipeData && selectedRecipeData.author}
+                    />
+                     <UU5.Forms.Text
+                        name="difficulty"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Difficulty", cs: "Náročnost"}}/>}
+                        placeholder="Some text..."
+                        required
+                        value={selectedRecipeData && selectedRecipeData.difficulty}
+                    />
+                    <UU5.Forms.Text
+                        name="preparationTime"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Preparation time", cs: "Čas na přípravu"}}/>}
+                        placeholder="Some text..."
+                        required
+                        value={selectedRecipeData && selectedRecipeData.preparationTime}
+                    />
+                    <UU5.Forms.TextArea
+                        name="instructions"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Instructions", cs: "Instrukce"}}/>}
+                        placeholder="Some text..."
+                        required
+                        value={selectedRecipeData && selectedRecipeData.instructions}
+                    />
                     <UU5.Forms.Select
                         name="ingredientList"
                         label={<UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>}
                         multiple={true}
                         reguired
-                        value={selectedRecipeData && selectedRecipeData.ingredientList}
+                        value={selectedRecipeData && selectedRecipeData.ingredientList && loadIngredients(selectedRecipeData)}
                     >
-                       
                         {ingredientList}
                     </UU5.Forms.Select>
+                    <UU5.Bricks.Button 
+                        size="s" 
+                        colorSchema="info"
+                        onClick = {() => console.log(selectedRecipeData)}
+                    >
+                        Chytrý tlačítko
+                    </UU5.Bricks.Button>
                     <UU5.Bricks.Line size={"s"}/>
                     <UU5.Forms.Controls/>
                 </UU5.Forms.Form>

@@ -17,12 +17,6 @@
     "measure": "ml",
     "approved": true
   },
-  "161552": {
-    "id": "161552",
-    "name": "Tonic",
-    "measure": "ml",
-    "approved": true
-  },
   "152182": {
     "id": "152182",
     "name": "Ice",
@@ -32,6 +26,12 @@
   "161240": {
     "id": "161240",
     "name": "Cola",
+    "measure": "ml",
+    "approved": true
+  },
+  "161552": {
+    "id": "161552",
+    "name": "Tonic",
     "measure": "ml",
     "approved": true
   },
