@@ -43,7 +43,7 @@ export const RecipeList = createVisualComponent({
         });
         const ingredientListResult = useDataList({
             handlerMap: {
-                load: Calls.listIngredientss,
+                load: Calls.listIngredients,
             },
             initialDtoIn: {data: {}}
         });
@@ -55,6 +55,9 @@ export const RecipeList = createVisualComponent({
         const [selectedRecipeData, setSelectedRecipeData] = useState(null)
         const [addRecipeImageData, setAddRecipeImageData] = useState(null)
         const [text, setText] = useState("")
+        const [ingredientFilterList, setIngredientFilter] = useState([])
+
+        //console.log(ingredientFilterList);
 
         const columns = [
             {
@@ -145,6 +148,7 @@ export const RecipeList = createVisualComponent({
 
             var results = new Set();
             let toSearch = text.replace(" ","").toLowerCase();
+            let toSearchIngredient = ingredientFilterList;
 
             switch (dataListResult.state) {
                 case "pendingNoData":
@@ -155,11 +159,20 @@ export const RecipeList = createVisualComponent({
                 case "ready":
                 for(var i=0; i< dataListResult.data.length; i++) {
                     Object.keys(dataListResult.data[i].data).forEach(function(index){
-                            if(dataListResult.data[i].data[index].toLowerCase && dataListResult.data[i].data[index].toLowerCase().indexOf(toSearch)!=-1) {
-                            results.add(dataListResult.data[i]);
-                        } 
+                        //console.log(dataListResult.data[i].data[index])
+/*                         if(dataListResult.data[i].data[index].toLowerCase && dataListResult.data[i].data[index].toLowerCase().indexOf(toSearch)!=-1) {
+                            results.add(dataListResult.data[i])
+                        }  */
+
+                        //console.log(dataListResult.data[i].data["ingredientList"]);
+                        Object.keys(dataListResult.data[i].data["ingredientList"]).forEach(function(index){
+                            if(index == toSearchIngredient){
+                                results.add(dataListResult.data[i])
+                            }
+                        })
                     })
-                } 
+                }
+
                 child = (
                     <Uu5Tiles.List
                         height="auto"
@@ -183,7 +196,25 @@ export const RecipeList = createVisualComponent({
             UU5.Environment.getRouter().setRoute("recipe", {id: id})
         }
 
+        let ingredientList = [];
         
+        ingredientListResult.data && ingredientListResult.data.forEach(ingredient => {
+
+            if (ingredient.data.approved) {
+                ingredientList.push(
+                    <UU5.Forms.Select.Option
+                        key={ingredient.data.id}
+                        value={ingredient.data.id}
+                        content={ingredient.data.name} 
+                    />
+                )
+            }
+        })
+        
+
+        function loadIngredients(recipeObj) {
+            return Object.keys(recipeObj.ingredientList)
+        }
 
         
         //@@viewOff:private
@@ -228,6 +259,28 @@ export const RecipeList = createVisualComponent({
                     }]}
                     controlled={false}
                 />
+                </div>
+                <div>
+                <UU5.Forms.Select
+                        name="ingredientList"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>}
+                        multiple={true}
+                        //reguired
+                        value={ingredientFilterList}
+                        onChange={(opt) => {
+                            setIngredientFilter((currentState) => {
+                                let index = currentState.indexOf(opt.value)
+                                if(index === -1){
+                                    currentState.push(opt.value);
+                                } else {
+                                    currentState.splice(index,1);
+                                }
+                                return currentState.slice();
+                            })
+                        }}
+                    >
+                        {ingredientList}
+                    </UU5.Forms.Select>
                 </div>
                 {getChild()}
             </div>
