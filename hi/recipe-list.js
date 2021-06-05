@@ -54,7 +54,7 @@ export const RecipeList = createVisualComponent({
 
         const [selectedRecipeData, setSelectedRecipeData] = useState(null)
         const [addRecipeImageData, setAddRecipeImageData] = useState(null)
-        //const [newRecipeState, setRecipeState] = useState(null)
+        const [text, setText] = useState("")
 
         const columns = [
             {
@@ -142,6 +142,10 @@ export const RecipeList = createVisualComponent({
 
         function getChild() {
             let child;
+
+            var results = new Set();
+            let toSearch = text.replace(" ","").toLowerCase();
+
             switch (dataListResult.state) {
                 case "pendingNoData":
                 case "pending":
@@ -149,16 +153,24 @@ export const RecipeList = createVisualComponent({
                     break;
                 case "readyNoData":
                 case "ready":
-                    child = (
-                        <Uu5Tiles.List
-                            height="auto"
-                            data={dataListResult.data}
-                            columns={columns}
-                            rowHeight={"76px"}
-                            rowAlignment={"center"}
-                        />
-                    );
-                    break;
+                for(var i=0; i< dataListResult.data.length; i++) {
+                    Object.keys(dataListResult.data[i].data).forEach(function(index){
+                            if(dataListResult.data[i].data[index].toLowerCase && dataListResult.data[i].data[index].toLowerCase().indexOf(toSearch)!=-1) {
+                            results.add(dataListResult.data[i]);
+                        } 
+                    })
+                } 
+                child = (
+                    <Uu5Tiles.List
+                        height="auto"
+                        data={[...results]}
+                        columns={columns}
+                        rowHeight={"76px"}
+                        rowAlignment={"center"}
+                    />
+
+                );
+                break;
                 case "errorNoData":
                 case "error":
                     child = "error";
@@ -171,30 +183,9 @@ export const RecipeList = createVisualComponent({
             UU5.Environment.getRouter().setRoute("recipe", {id: id})
         }
 
-        function filterRecipe(text) {
+        
 
-            var results = [];
-            let toSearch = text.value.replace(" ","").toLowerCase();
-
-            for(var i=0; i< dataListResult.data.length; i++) {
-                Object.keys(dataListResult.data[i].data).forEach(function(index){
-                    //console.log(dataListResult.data[i].data[index]);
-                    console.log(toSearch);
-/*                     let newData = dataListResult.data[i].data[index]
-                    newDat */
-                     if(dataListResult.data[i].data[index].toLowerCase && dataListResult.data[i].data[index].toLowerCase().indexOf(toSearch)!=-1) {
-                        results.push(dataListResult.data[i].data);
-                        console.log(results);
-                    } 
-                })
-            }
-
-/*             Object.keys(dataListResult.data).forEach(function(index){
-                console.log(dataListResult.data[index].data)
-            }); */
-            
-            //console.log(dataListResult.data);
-        }
+        
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -216,7 +207,6 @@ export const RecipeList = createVisualComponent({
                         setAddRecipeImageData={setAddRecipeImageData}
                         addRecipeImageData={addRecipeImageData}
                     />
-                        {console.log(selectedRecipeData)}
                 </UU5.Bricks.Modal>
                 <UU5.Bricks.Header content={<UU5.Bricks.Lsi lsi={{en: "Recipe List", cs: "Seznam receptů"}}/>} level={3}/>
                 <div className={"right"}>
@@ -233,9 +223,10 @@ export const RecipeList = createVisualComponent({
                     size="L"
                     buttons={[{
                         icon: 'mdi-magnify',
-                        onClick: (opt) => filterRecipe(opt),
+                        onClick: (opt) => setText(opt.value),
                         colorSchema: 'default',
                     }]}
+                    controlled={false}
                 />
                 </div>
                 {getChild()}

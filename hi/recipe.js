@@ -71,8 +71,8 @@ export const Recipe = createVisualComponent({
                             newIngredientList.ingredientList[index] *= value;
                         });
 
-                        setNewList(newIngredientList)
-                    })
+                    setNewList(newIngredientList)
+                })
         };
 
         //@@viewOff:private
