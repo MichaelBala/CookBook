@@ -9,6 +9,7 @@ async function CreateAbl(req, res) {
 
     if (
         name && typeof name === "string" && name.length < 200 &&
+        author && typeof author === "string" && author.length < 200 &&
         ingredientList && Object.keys(ingredientList).length > 0 && typeof ingredientList === "object" &&
         difficulty && typeof difficulty === "string" && difficulty.length < 50 &&
         preparationTime && preparationTime < 1000 && typeof preparationTime === "number" &&
