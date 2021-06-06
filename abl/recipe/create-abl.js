@@ -27,13 +27,15 @@ async function CreateAbl(req, res) {
             }
         } */
         for (const [key, value] of Object.entries(ingredientList)){
-            try {
-                await ingredientsDao.getIngredient(key)
-            } catch (e) {
-                if (e.code === "FAILED_TO_GET_INGREDIENT") {
-                    res.status(400).json({error: e})
-                } else {
-                    res.status(500).json({error: e})
+            if(typeof key === "string" && key.length < 10 && typeof value === "number" && value < 1000){
+                try {
+                    await ingredientsDao.getIngredient(key)
+                } catch (e) {
+                    if (e.code === "FAILED_TO_GET_INGREDIENT") {
+                        res.status(400).json({error: e})
+                    } else {
+                        res.status(500).json({error: e})
+                    }
                 }
             }
         }
