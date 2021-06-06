@@ -160,16 +160,18 @@ export const RecipeList = createVisualComponent({
                 for(var i=0; i< dataListResult.data.length; i++) {
                     Object.keys(dataListResult.data[i].data).forEach(function(index){
                         //console.log(dataListResult.data[i].data[index])
-/*                         if(dataListResult.data[i].data[index].toLowerCase && dataListResult.data[i].data[index].toLowerCase().indexOf(toSearch)!=-1) {
-                            results.add(dataListResult.data[i])
-                        }  */
-
-                        //console.log(dataListResult.data[i].data["ingredientList"]);
-                        Object.keys(dataListResult.data[i].data["ingredientList"]).forEach(function(index){
-                            if(index == toSearchIngredient){
-                                results.add(dataListResult.data[i])
-                            }
-                        })
+                        if (toSearchIngredient.length != 0){
+                            Object.keys(dataListResult.data[i].data["ingredientList"]).forEach(function(index){
+                                toSearchIngredient.forEach(element => {
+                                    if(index == element){         
+                                        results.add(dataListResult.data[i])
+                                    } 
+                                });
+                            })
+                        } 
+                        if(toSearchIngredient.length === 0 && dataListResult.data[i].data[index].toLowerCase && dataListResult.data[i].data[index].toLowerCase().indexOf(toSearch)!=-1) {
+                            results.add(dataListResult.data[i])                        
+                        }
                     })
                 }
 
@@ -212,10 +214,10 @@ export const RecipeList = createVisualComponent({
         })
         
 
-        function loadIngredients(recipeObj) {
+/*         function loadIngredients(recipeObj) {
             return Object.keys(recipeObj.ingredientList)
         }
-
+ */
         
         //@@viewOff:private
 
@@ -247,41 +249,48 @@ export const RecipeList = createVisualComponent({
                         onClick={() => setSelectedRecipeData({data: {}})}
                     />
                 </div>
-                <div className={"left"}>
-                <UU5.Forms.TextButton
-                    label='Search'
-                    placeholder='Insert text here.'
-                    size="L"
-                    buttons={[{
-                        icon: 'mdi-magnify',
-                        onClick: (opt) => setText(opt.value),
-                        colorSchema: 'default',
-                    }]}
-                    controlled={false}
-                />
-                </div>
-                <div>
-                <UU5.Forms.Select
-                        name="ingredientList"
-                        label={<UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>}
-                        multiple={true}
-                        //reguired
-                        value={ingredientFilterList}
-                        onChange={(opt) => {
-                            setIngredientFilter((currentState) => {
-                                let index = currentState.indexOf(opt.value)
-                                if(index === -1){
-                                    currentState.push(opt.value);
-                                } else {
-                                    currentState.splice(index,1);
-                                }
-                                return currentState.slice();
-                            })
-                        }}
-                    >
-                        {ingredientList}
-                    </UU5.Forms.Select>
-                </div>
+                <table width="80%">
+                    <tr>
+                        <td>
+                            <div className={"left"}>
+                                <UU5.Forms.TextButton
+                                    label={<UU5.Bricks.Lsi lsi={{en: "Search", cs: "Vyhledat"}}/>}
+                                    size="m"
+                                    buttons={[{
+                                        icon: 'mdi-magnify',
+                                        onClick: (opt) => setText(opt.value),
+                                        colorSchema: 'info',
+                                    }]}
+                                    controlled={false}
+                                />
+                            </div>
+                        </td>
+                        <td width="40%">
+                            <div>
+                                <UU5.Forms.Select
+                                        name="ingredientList"
+                                        label={<UU5.Bricks.Lsi lsi={{en: "Ingredients", cs: "Ingredience"}}/>}
+                                        multiple={true}
+                                        //reguired
+                                        value={ingredientFilterList}
+                                        onChange={(opt) => {
+                                            setIngredientFilter((currentState) => {
+                                                let index = currentState.indexOf(opt.value)
+                                                if(index === -1){
+                                                    currentState.push(opt.value);
+                                                } else {
+                                                    currentState.splice(index,1);
+                                                }
+                                                return currentState.slice();
+                                            })
+                                        }}
+                                    >
+                                        {ingredientList}
+                                </UU5.Forms.Select>
+                            </div>
+                        </td>
+                    </tr>
+                </table>              
                 {getChild()}
             </div>
         );
