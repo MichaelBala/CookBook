@@ -16,7 +16,7 @@ async function CreateAbl(req, res) {
         } catch (e) {
             if (e.code === "DUPLICATE_CODE") {
                 res.status(400).json({error: e})
-            } else if (e.code === "FAILED_TO_STORE_ingredient") {
+            } else if (e.code === "FAILED_TO_STORE_INGREDIENT") {
                 res.status(500).json({error: e})
             } else {
                 res.status(500).json({error: e})

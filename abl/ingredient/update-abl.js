@@ -14,9 +14,9 @@ async function UpdateAbl(req, res) {
             let result = await dao.updateIngredient(ingredient);
             res.status(200).json(result);
         } catch (e) {
-            if (e.code === "FAILED_TO_GET_ingredient") {
+            if (e.code === "FAILED_TO_GET_INGREDIENT") {
                 res.status(400).json({error: e})
-            } else if (e.code === "FAILED_TO_UPDATE_ingredient") {
+            } else if (e.code === "FAILED_TO_UPDATE_INGREDIENT") {
                 res.status(500).json({error: e})
             } else {
                 res.status(500).json({error: e})
