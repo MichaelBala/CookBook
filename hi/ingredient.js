@@ -51,8 +51,6 @@ export const Ingredient = createVisualComponent({
         const attrs = UU5.Common.VisualComponent.getAttrs(props);
         return (
             <div {...attrs}>
-                <UU5.Bricks.Button content={"recipe"} onClick={() => UU5.Environment.getRouter().setRoute("recipe")} />
-                <div>Ingredient</div>
             </div>
         );
         //@@viewOff:render

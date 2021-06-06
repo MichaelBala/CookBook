@@ -114,7 +114,6 @@ export const LibrarySpa = createVisualComponent({
                         "recipeList": {component: <RecipeList/>},
                         "ingredientList": {component: <IngredientList/>},
                         "recipe": {component: <Recipe/>},
-                        "ingredient": {component: <Ingredient/>}, 
                     }}/>
             </UU5.Bricks.Page>
         );

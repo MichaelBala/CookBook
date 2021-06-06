@@ -62,7 +62,7 @@ export const Recipe = createVisualComponent({
 
         const [newList, setNewList] = useState(recipeDataObject.data);
 
-        function functionOne(opt){
+        function recipeRecalculation(opt){
             opt.component.onChangeDefault(opt, () => {
 
                         let value = opt.value;
@@ -72,9 +72,85 @@ export const Recipe = createVisualComponent({
                         });
 
                     setNewList(newIngredientList)
+                    ingredientComponent(newIngredientList)
                 })
         };
+        function tableRecipe(){
+            return(
+                <UU5.Bricks.Div>
+                    <UU5.Forms.Text
+                        name="name"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Name", cs: "Název"}}/>}
+                        readOnly
+                        value={(newList && newList.name || recipeDataObject.data && recipeDataObject.data.name)}
+                        width="20%"
+                    />
+                    <UU5.Forms.Text
+                        name="author"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Author", cs: "Autor"}}/>}
+                        readOnly
+                        value={(newList && newList.author || recipeDataObject.data && recipeDataObject.data.author)}
+                    />
+                    <UU5.Forms.Text
+                        name="difficulty"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Difficulty", cs: "Náročnost"}}/>}
+                        readOnly
+                        value={(newList && newList.difficulty || recipeDataObject.data && recipeDataObject.data.difficulty)}
+                    />
+                    <UU5.Forms.Number
+                        name="preparationTime"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Preparation time", cs: "Čas na přípravu"}}/>}
+                        readOnly
+                        value={(newList && newList.preparationTime || recipeDataObject.data && recipeDataObject.data.preparationTime)}
+                    />
+                    <UU5.Forms.TextArea
+                        name="instructions"
+                        label={<UU5.Bricks.Lsi lsi={{en: "Instructions", cs: "Instrukce"}}/>}
+                        readOnly
+                        value={(newList && newList.instructions || recipeDataObject.data && recipeDataObject.data.instructions)}
+                    />
+                </UU5.Bricks.Div>
+            )
+        }
+        function ingredientComponent(opt){
 
+            for (const [key, value] of Object.entries(opt.ingredientList)){
+                console.log("Tady")
+                console.log(key)
+                console.log(value)
+                for (const [keyObject, valueObject] of Object.entries(opt.ingredientObjectList)){
+                    console.log("Tady2")
+                    console.log(keyObject)
+                    console.log(valueObject)
+                }
+            
+/*                     newIngredientList[key.replace("ingredientAmount","")] = value
+                
+                if (key.startsWith("ingredientNewAmount") && value > 0){
+                    let using_key = key.replace("Amount","") 
+                    newIngredientList[opt.values[using_key]] = value
+                }  */
+            }
+/*             let editIngredientList = JSON.parse(JSON.stringify(opt.ingredientList));
+
+            opt.ingredientObjectList.forEach(index => {
+                Object.keys(editIngredientList).forEach(function(key){
+                    console.log(index.id == key)
+                    if(index.id == key){
+                        key = index.name
+
+                    }})
+                console.log(editIngredientList)
+                console.log(opt.ingredientList)
+                console.log(opt.ingredientObjectList) */
+/*                 console.log(opt.ingredientList[index.id]+" "+index.measure)
+                console.log(index.name) */
+            
+/*             console.log([...opt.ingredientObjectList])
+            console.log(opt.ingredientList)
+            console.log(opt) */
+        }
+        
         //@@viewOff:private
 
         //@@viewOn:interface
@@ -84,7 +160,6 @@ export const Recipe = createVisualComponent({
         const attrs = UU5.Common.VisualComponent.getAttrs(props);
         return (
             <div {...attrs}>
-                <UU5.Bricks.Button content={"ingredient"} onClick={() => UU5.Environment.getRouter().setRoute("ingredient")} />
                     
                 <UU5.Forms.Slider
                     labelColWidth={"xs-12 s-12 m4 l4 xl4"}
@@ -95,14 +170,15 @@ export const Recipe = createVisualComponent({
                     min={1}
                     max={100}
                     step={1}
-                    onChange={opt => functionOne(opt)}
+                    onChange={opt => recipeRecalculation(opt)}
                     controlled={false}
                     />
-                                        
+                {tableRecipe()}        
                <pre>{JSON.stringify(newList || recipeDataObject.data, null, 2)}</pre>
             </div>
             
         );
+        
         //@@viewOff:render
     }
 });
