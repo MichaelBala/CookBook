@@ -27,6 +27,7 @@ export const IngredientList = createVisualComponent({
     //@@viewOn:defaultProps
     //@@viewOff:defaultProps
 
+
     render(props) {
         //@@viewOn:private
         function onDelete(data) {
@@ -43,13 +44,15 @@ export const IngredientList = createVisualComponent({
             // if ingredients are in the set dont delete, otherwise delete
             if (usedIngredients.has(data.data.id)){
                 //toDo: make alert nicer (uu component?)
-                alert("The ingredient was not deleted! It exists in some recipe.");
+                setShowAlert(1);
+                //alert("The ingredient was not deleted! It exists in some recipe.");
             }else{
                 data.handlerMap.delete({data: {id: data.data.id}})
             }
             
             
         }
+
 
         const dataListResult = useDataList({
             handlerMap: {
@@ -76,6 +79,7 @@ export const IngredientList = createVisualComponent({
 
         const [selectedIngredientData, setSelectedIngredientData] = useState(null)
         const [showAcceptedOnly, setShowAcceptedOnly] = useState(true)
+        const [showAlert, setShowAlert] = useState(0)
 
         const columns = [
             /* id neni treba ukazovat, ale necham zakoment kdyby prece
@@ -213,6 +217,12 @@ export const IngredientList = createVisualComponent({
                 />
             </div>
             {getChild()}
+            <UU5.Bricks.Alert
+                style={{opacity: showAlert}}
+                content="The ingredient was not deleted! It exists in some recipe."
+                header="Alert!" colorSchema="red" block
+                onClose={() => setShowAlert(0)}/>
+
         </div>
     );
     //@@viewOff:render

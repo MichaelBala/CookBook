@@ -37,9 +37,6 @@ export const Recipe = createVisualComponent({
     ...STATICS,
 
     //@@viewOn:propTypes
-    propTypes: {
-        selectedRecipeData: UU5.PropTypes.object
-    },
     //@@viewOff:propTypes
 
     //@@viewOn:defaultProps
@@ -126,7 +123,7 @@ export const Recipe = createVisualComponent({
                             name={index.name}
                             label={index.name}
                             readOnly
-                            value={("Množství: " + newList.ingredientList[index.id] + " " + index.measure)}
+                            value={(newList.ingredientList[index.id] + " " + index.measure)}
                         />
                         </UU5.Bricks.Div>
                     )
@@ -139,7 +136,7 @@ export const Recipe = createVisualComponent({
                             name={index.name}
                             label={index.name}
                             readOnly
-                            value={("Množství: " + recipeDataObject.data.ingredientList[index.id] + " " + index.measure)}
+                            value={(recipeDataObject.data.ingredientList[index.id] + " " + index.measure)}
                         />
                         </UU5.Bricks.Div>
                     )

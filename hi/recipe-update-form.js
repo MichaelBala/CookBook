@@ -132,6 +132,8 @@ export const RecipeUpdateForm = createVisualComponent({
         function onSave(opt) {
             let newIngredientList = {}
 
+            setnewComponents(0)
+    
             for (const [key, value] of Object.entries(opt.values)){
                 if (key.startsWith("ingredientAmount") && value > 0) {
                     newIngredientList[key.replace("ingredientAmount","")] = value
@@ -167,7 +169,7 @@ export const RecipeUpdateForm = createVisualComponent({
             <div {...attrs} className={"uu5-common-padding-s"}>
                 <UU5.Forms.Form
                     onSave={onSave}
-                    onCancel={() => props.setSelectedRecipeData(null)}
+                    onCancel={() => {props.setSelectedRecipeData(null); setnewComponents(0)}}
                     header={selectedRecipeData && selectedRecipeData.id
                         ? <UU5.Bricks.Lsi lsi={{en: "Update Recipe", cs: "Upravit knihu"}}/>
                         : <UU5.Bricks.Lsi lsi={{en: "Create Recipe", cs: "Vytvořit knihu"}}/>
