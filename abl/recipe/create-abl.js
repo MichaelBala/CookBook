@@ -12,23 +12,13 @@ async function CreateAbl(req, res) {
         author && typeof author === "string" && author.length < 200 &&
         ingredientList && Object.keys(ingredientList).length > 0 && typeof ingredientList === "object" &&
         difficulty && typeof difficulty === "string" && difficulty.length < 50 &&
-        preparationTime && preparationTime < 1000 && typeof preparationTime === "number" &&
+        preparationTime && preparationTime < 1000 && typeof preparationTime === "number" && preparationTime > 0 && 
         instructions && instructions.length < 10000 && typeof instructions === "string" &&
         id && typeof id === "string" && id.length < 25
     ) {
-/*         for (let i = 0; i< Object.keys(ingredientList).length; i++) {
-            try {
-                await ingredientsDao.getIngredient(ingredientList[i])
-            } catch (e) {
-                if (e.code === "FAILED_TO_GET_INGREDIENT") {
-                    res.status(400).json({error: e})
-                } else {
-                    res.status(500).json({error: e})
-                }
-            }
-        } */
+
         for (const [key, value] of Object.entries(ingredientList)){
-            if(typeof key === "string" && key.length < 10 && typeof value === "number" && value < 1000){
+            if(typeof key === "string" && key.length < 10 && typeof value === "number" && value < 1000 && value > 0){
                 try {
                     await ingredientsDao.getIngredient(key)
                 } catch (e) {
@@ -37,7 +27,11 @@ async function CreateAbl(req, res) {
                     } else {
                         res.status(500).json({error: e})
                     }
-                }
+                } 
+            } else {
+                res.status(400).json({
+                    "error": "Invalid dtoIn"
+                }) 
             }
         }
         const recipe = {id, name, difficulty, preparationTime, instructions, ingredientList, author};
