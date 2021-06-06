@@ -4,12 +4,12 @@ let dao = new LibraryDao(path.join(__dirname, "..", "..", "storage", "recipes.js
 
 async function UpdateAbl(req, res) {
     let {id, name, difficulty, preparationTime, instructions, ingredientList, author} = req.body;
-
     if ( name && typeof name === "string" && name.length < 200 &&
-        ingredientList && Object.keys(ingredientList).length > 0 &&
+        author && typeof author === "string" && author.length < 200 &&
+        ingredientList && Object.keys(ingredientList).length > 0 && typeof ingredientList === "object" &&
         difficulty && typeof difficulty === "string" && difficulty.length < 50 &&
-        preparationTime && preparationTime < 1000 &&
-        instructions && instructions.length < 10000 &&
+        preparationTime && preparationTime < 1000 && typeof preparationTime === "number" &&
+        instructions && instructions.length < 10000 && typeof instructions === "string" &&
         id && typeof id === "string" && id.length < 25
     ) {
         const recipe = {id, name, difficulty, preparationTime, instructions, ingredientList, author};
