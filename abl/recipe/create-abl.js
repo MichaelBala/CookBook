@@ -20,7 +20,7 @@ async function CreateAbl(req, res) {
             try {
                 await ingredientsDao.getIngredient(ingredientList[i])
             } catch (e) {
-                if (e.code === "FAILED_TO_GET_ingredient") {
+                if (e.code === "FAILED_TO_GET_INGREDIENT") {
                     res.status(400).json({error: e})
                 } else {
                     res.status(500).json({error: e})

@@ -77,7 +77,7 @@ export const Recipe = createVisualComponent({
         };
         function tableRecipe(){
             return(
-                <UU5.Bricks.Div>
+                <UU5.Forms.Form>
                     <UU5.Forms.Text
                         name="name"
                         label={<UU5.Bricks.Lsi lsi={{en: "Name", cs: "Název"}}/>}
@@ -109,7 +109,7 @@ export const Recipe = createVisualComponent({
                         readOnly
                         value={(newList && newList.instructions || recipeDataObject.data && recipeDataObject.data.instructions)}
                     />
-                </UU5.Bricks.Div>
+                </UU5.Forms.Form>
             )
         }
 

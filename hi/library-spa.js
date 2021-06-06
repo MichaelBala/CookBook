@@ -110,7 +110,7 @@ export const LibrarySpa = createVisualComponent({
                 <UU5.Common.Router
                     basePath={""}
                     routes={{
-                        "": {component: <div>home</div>},
+                        "": {component: <div><h2>Vítejte v nejlepším receptáři na drinky!</h2></div>},
                         "recipeList": {component: <RecipeList/>},
                         "ingredientList": {component: <IngredientList/>},
                         "recipe": {component: <Recipe/>},
