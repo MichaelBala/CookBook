@@ -7,10 +7,6 @@ let ingredientsDao = new IngredientsDao(path.join(__dirname, "..", "..", "storag
 async function CreateAbl(req, res) {
     let {id, name, difficulty, preparationTime, instructions, ingredientList, author} = req.body;
 
-    ingredientList.forEach(key => {
-        console.log(key)
-    })
-
     if (
         name && typeof name === "string" && name.length < 200 &&
         ingredientList && Object.keys(ingredientList).length > 0 && typeof ingredientList === "object" &&
@@ -19,9 +15,20 @@ async function CreateAbl(req, res) {
         instructions && instructions.length < 10000 && typeof instructions === "string" &&
         id && typeof id === "string" && id.length < 25
     ) {
-        for (let i = 0; i< ingredientList.length; i++) {
+/*         for (let i = 0; i< Object.keys(ingredientList).length; i++) {
             try {
                 await ingredientsDao.getIngredient(ingredientList[i])
+            } catch (e) {
+                if (e.code === "FAILED_TO_GET_INGREDIENT") {
+                    res.status(400).json({error: e})
+                } else {
+                    res.status(500).json({error: e})
+                }
+            }
+        } */
+        for (const [key, value] of Object.entries(ingredientList)){
+            try {
+                await ingredientsDao.getIngredient(key)
             } catch (e) {
                 if (e.code === "FAILED_TO_GET_INGREDIENT") {
                     res.status(400).json({error: e})

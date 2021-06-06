@@ -166,7 +166,7 @@ export const RecipeUpdateForm = createVisualComponent({
         let selectedRecipeData = props.selectedRecipeData && props.selectedRecipeData.data || {}
         
         return (
-            <div {...attrs} className={"uu5-common-padding-s"}>
+            <UU5.Bricks.Div {...attrs} className={"uu5-common-padding-s"}>
                 <UU5.Forms.Form
                     onSave={onSave}
                     onCancel={() => {props.setSelectedRecipeData(null); setnewComponents(0)}}
@@ -214,6 +214,7 @@ export const RecipeUpdateForm = createVisualComponent({
                         placeholder="Some text..."
                         required
                         value={selectedRecipeData && selectedRecipeData.preparationTime}
+                        valueType={"number"}
                     />
                     <UU5.Forms.TextArea
                         name="instructions"
@@ -234,7 +235,7 @@ export const RecipeUpdateForm = createVisualComponent({
                     <UU5.Bricks.Line size={"s"}/>
                     <UU5.Forms.Controls/>
                 </UU5.Forms.Form>
-            </div>
+            </UU5.Bricks.Div>
             
         );
         
