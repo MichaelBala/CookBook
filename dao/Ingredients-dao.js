@@ -74,12 +74,12 @@ class LibraryDao {
                 return ingredients[ingredient.id];
             } catch (error) {
                 const e = new Error(`Failed to approve ingredient with id '${ingredient.id}' in local storage.`);
-                e.code = "FAILED_TO_APPROVE_ingredient";
+                e.code = "FAILED_TO_APPROVE_INGREDIENT";
                 throw e;
             }
         } else {
             const e = new Error(`ingredient with id '${ingredient.id}' does not exist.`);
-            e.code = "FAILED_TO_GET_ingredient";
+            e.code = "FAILED_TO_GET_INGREDIENT";
             throw e;
         }
     }
@@ -93,7 +93,7 @@ class LibraryDao {
             return undefined;
         } catch (error) {
             const e = new Error(`Failed to delete ingredient with id '${id}' in local storage.`);
-            e.code = "FAILED_TO_DELETE_ingredient";
+            e.code = "FAILED_TO_DELETE_INGREDIENT";
             throw e;
         }
     }

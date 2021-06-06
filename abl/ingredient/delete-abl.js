@@ -19,7 +19,7 @@ async function DeleteAbl(req, res) {
                 res.status(200).json({});
             }
         } catch (e) {
-            if (e.code === "FAILED_TO_DELETE_ingredient") {
+            if (e.code === "FAILED_TO_DELETE_INGREDIENT") {
                 res.status(500).json({error: e})
             } else {
                 res.status(500).json({error: e})

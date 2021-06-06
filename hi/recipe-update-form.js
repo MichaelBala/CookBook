@@ -183,7 +183,7 @@ export const RecipeUpdateForm = createVisualComponent({
                         name="id"
                         label="id"
                         placeholder="id"
-                        reguired
+                        required
                         value={selectedRecipeData && selectedRecipeData.id}
                         readOnly={selectedRecipeData && selectedRecipeData.id}
                     />
@@ -191,7 +191,7 @@ export const RecipeUpdateForm = createVisualComponent({
                         name="name"
                         label={<UU5.Bricks.Lsi lsi={{en: "Name", cs: "Název"}}/>}
                         placeholder="Some text..."
-                        reguired
+                        required
                         value={selectedRecipeData && selectedRecipeData.name}
                     />
                     <UU5.Forms.Text

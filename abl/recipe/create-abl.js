@@ -7,13 +7,16 @@ let ingredientsDao = new IngredientsDao(path.join(__dirname, "..", "..", "storag
 async function CreateAbl(req, res) {
     let {id, name, difficulty, preparationTime, instructions, ingredientList, author} = req.body;
 
+    ingredientList.forEach(key => {
+        console.log(key)
+    })
 
     if (
         name && typeof name === "string" && name.length < 200 &&
-        ingredientList && Object.keys(ingredientList).length > 0 &&
+        ingredientList && Object.keys(ingredientList).length > 0 && typeof ingredientList === "object" &&
         difficulty && typeof difficulty === "string" && difficulty.length < 50 &&
-        preparationTime && preparationTime < 1000 &&
-        instructions && instructions.length < 10000 &&
+        preparationTime && preparationTime < 1000 && typeof preparationTime === "number" &&
+        instructions && instructions.length < 10000 && typeof instructions === "string" &&
         id && typeof id === "string" && id.length < 25
     ) {
         for (let i = 0; i< ingredientList.length; i++) {
